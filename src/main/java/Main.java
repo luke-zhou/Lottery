@@ -10,7 +10,7 @@ public class Main
 {
     public static void main(String[] args) throws URISyntaxException
     {
-        File powerBallResultCsv = new File( Main.class.getResource( "data/Powerball1005.csv" ).toURI() );
+        File powerBallResultCsv = new File( Main.class.getResource( "data/Powerball-1041.csv" ).toURI() );
 
         PowerBallTrainer trainer = new PowerBallTrainer(powerBallResultCsv);
 

@@ -122,7 +122,14 @@ public class PowerBallDrawTest
     @Test
     public void generateDraw() throws Exception
     {
-        System.out.println(PowerBallDraw.generateDraw());
+        System.out.println(PowerBallDraw.generateDraw(i->true));
+
+    }
+
+    @Test
+    public void generateDraw_with7() throws Exception
+    {
+        System.out.println(PowerBallDraw.generateDraw(i->i==7));
 
     }
 }

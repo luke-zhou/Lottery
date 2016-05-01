@@ -2,7 +2,9 @@ package domain.draw;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by Luke on 13/05/2014.
@@ -63,7 +65,7 @@ public class PowerBallDraw extends Draw
         return getDivision(count, powerBallCheck);
     }
 
-    private  int getDivision(int correctCount, boolean powerBallCheck)
+    private int getDivision(int correctCount, boolean powerBallCheck)
     {
         int division = 0;
 
@@ -171,7 +173,7 @@ public class PowerBallDraw extends Draw
     @Override
     public Integer getNum(int index) throws Exception
     {
-        if (index <1 ||index >NUM_OF_BALL ) throw new Exception("not in range");
+        if (index < 1 || index > NUM_OF_BALL) throw new Exception("not in range");
         return nums[index - 1];
     }
 
@@ -195,22 +197,25 @@ public class PowerBallDraw extends Draw
         return sortedNums;
     }
 
-    public static PowerBallDraw generateDraw()
+    public static PowerBallDraw generateDraw(Predicate<Integer> predicate)
     {
         Integer[] selection = new Integer[NUM_OF_BALL];
         Arrays.fill(selection, 0);
 
-        for (int i = 0; i < PowerBallDraw.NUM_OF_BALL; i++)
-        {
-            int tempSelection = (int) (Math.random() * MAX_NUM + 1);
-            if(Arrays.stream(selection).anyMatch(j -> j == tempSelection))
-            {
-                i--;
-                continue;
-            }
-            selection[i] = tempSelection;
 
-        }
+        do{
+            for (int i = 0; i < PowerBallDraw.NUM_OF_BALL; i++)
+            {
+                int tempSelection = (int) (Math.random() * MAX_NUM + 1);
+                if (Arrays.stream(selection).anyMatch(j -> j == tempSelection))
+                {
+                    i--;
+                    continue;
+                }
+                selection[i] = tempSelection;
+            }
+        }  while (Arrays.stream(selection).noneMatch(predicate));
+
         int powerBallSelection = (int) (Math.random() * MAX_POWER_BALL_NUM + 1);
 
         try
