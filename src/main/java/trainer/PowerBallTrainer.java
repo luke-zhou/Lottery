@@ -61,7 +61,7 @@ public class PowerBallTrainer
 
         LogUtil.consoleLog(String.format("PowerHit Benchmark: (total win:%1d,total division:%2d, total training:%3d)", totalWin/20, totalDivision/20, totalTrainingSize));
 
-        for (int j=0;j<10;j++)
+        for (int j=1;j<=PowerBallDraw.MAX_NUM;j++)
         {
             totalWin = 0;
             totalDivision = 0;
@@ -77,7 +77,9 @@ public class PowerBallTrainer
                     totalDivision += division;
                     totalTrainingSize++;
                 }
+                if (i%10000==0) System.out.print(".");
             }
+            LogUtil.consoleLog("");
 
             LogUtil.consoleLog(String.format("PowerHit with number ("+expectedNum+"): (total win:%1d,total division:%2d, total training:%3d)", totalWin / 20, totalDivision / 20, totalTrainingSize));
 

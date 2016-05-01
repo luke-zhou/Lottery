@@ -1,9 +1,6 @@
 package domain.draw;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**
@@ -14,6 +11,7 @@ public class PowerBallDraw extends Draw
     public static int MAX_NUM = 40;
     public static int MAX_POWER_BALL_NUM = 20;
     public static int NUM_OF_BALL = 6;
+    private static Random random = new Random(System.currentTimeMillis());
 
     private Integer[] nums;
     private Integer[] sortedNums;
@@ -216,7 +214,7 @@ public class PowerBallDraw extends Draw
             }
         }  while (Arrays.stream(selection).noneMatch(predicate));
 
-        int powerBallSelection = (int) (Math.random() * MAX_POWER_BALL_NUM + 1);
+        int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
 
         try
         {
