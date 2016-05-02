@@ -17,9 +17,8 @@ public class PowerBallDraw extends Draw
     private Integer[] sortedNums;
     private Integer powerBall;
 
-    public PowerBallDraw(Integer[] nums, Integer powerBall) throws Exception
+    public PowerBallDraw(Integer[] nums, Integer powerBall)
     {
-        if (nums.length != NUM_OF_BALL) throw new Exception("not correct size");
         this.nums = Arrays.copyOf(nums, NUM_OF_BALL);
         this.sortedNums = Arrays.copyOf(nums, NUM_OF_BALL);
         Arrays.sort(sortedNums);
@@ -28,15 +27,10 @@ public class PowerBallDraw extends Draw
 
     public int checkWinPowerHit(PowerBallDraw draw)
     {
-        boolean powerBallCheck = true;
-
-        int division = getDivision(sortedNums, draw.getSortedNums(), powerBallCheck);
-
-        return division;
-
+        return calculateDivision(sortedNums, draw.getSortedNums(), true);
     }
 
-    private int getDivision(Integer[] thisDraw, Integer[] testedDraw, boolean powerBallCheck)
+    private int calculateDivision(Integer[] thisDraw, Integer[] testedDraw, boolean powerBallCheck)
     {
         int count = 0;
 
@@ -144,7 +138,7 @@ public class PowerBallDraw extends Draw
 
     public int checkWin(PowerBallDraw draw)
     {
-        return getDivision(sortedNums, draw.getSortedNums(), powerBall == draw.getPowerBall());
+        return calculateDivision(sortedNums, draw.getSortedNums(), powerBall == draw.getPowerBall());
     }
 
     public String toStringSorted()
@@ -196,40 +190,23 @@ public class PowerBallDraw extends Draw
     public static PowerBallDraw generateDraw(Predicate<Integer> predicate)
     {
         Integer[] selection;
-        do
-        {
+        do {
             selection = randomGenerateSelection();
         } while (Arrays.stream(selection).noneMatch(predicate));
 
         int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
 
-        try
-        {
-            return new PowerBallDraw(selection, powerBallSelection);
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return null;
+        return new PowerBallDraw(selection, powerBallSelection);
     }
 
     private static Integer[] randomGenerateSelection()
     {
-        Integer[] selection = new Integer[NUM_OF_BALL];
-        Arrays.fill(selection, 0);
+        Set<Integer> selectionSet = new HashSet<>();
 
-        for (int i = 0; i < NUM_OF_BALL; i++)
-        {
-            int tempSelection = random.nextInt(MAX_NUM) + 1;
-            if (Arrays.stream(selection).anyMatch(j -> j == tempSelection))
-            {
-                i--;
-                continue;
-            }
-            selection[i] = tempSelection;
+        while (selectionSet.size()<NUM_OF_BALL) {
+            selectionSet.add(random.nextInt(MAX_NUM) + 1);
         }
 
-        return selection;
+        return selectionSet.toArray(new Integer[NUM_OF_BALL]);
     }
 }
