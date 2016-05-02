@@ -195,22 +195,11 @@ public class PowerBallDraw extends Draw
 
     public static PowerBallDraw generateDraw(Predicate<Integer> predicate)
     {
-        Integer[] selection = new Integer[NUM_OF_BALL];
-        Arrays.fill(selection, 0);
-
-
-        do{
-            for (int i = 0; i < PowerBallDraw.NUM_OF_BALL; i++)
-            {
-                int tempSelection = (int) (Math.random() * MAX_NUM + 1);
-                if (Arrays.stream(selection).anyMatch(j -> j == tempSelection))
-                {
-                    i--;
-                    continue;
-                }
-                selection[i] = tempSelection;
-            }
-        }  while (Arrays.stream(selection).noneMatch(predicate));
+        Integer[] selection;
+        do
+        {
+            selection = randomGenerateSelection();
+        } while (Arrays.stream(selection).noneMatch(predicate));
 
         int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
 
@@ -223,5 +212,24 @@ public class PowerBallDraw extends Draw
         }
 
         return null;
+    }
+
+    private static Integer[] randomGenerateSelection()
+    {
+        Integer[] selection = new Integer[NUM_OF_BALL];
+        Arrays.fill(selection, 0);
+
+        for (int i = 0; i < NUM_OF_BALL; i++)
+        {
+            int tempSelection = random.nextInt(MAX_NUM) + 1;
+            if (Arrays.stream(selection).anyMatch(j -> j == tempSelection))
+            {
+                i--;
+                continue;
+            }
+            selection[i] = tempSelection;
+        }
+
+        return selection;
     }
 }
