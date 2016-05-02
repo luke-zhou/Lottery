@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 /**
  * Created by Luke on 1/05/2016.
@@ -32,6 +33,66 @@ public class PowerBallTrainer
 
         LogUtil.consoleLog("PowerBall Result Sample Size: " + results.size());
 
+//        calculatePowerBallBenchMark(results);
+
+        IntStream.range(1,10).forEach(i -> calculatePowerHitBenchMark(results));
+
+//        calculatePowerHitNumberSimpleRule(results);
+
+
+
+
+    }
+
+    private void calculatePowerHitNumberSimpleRule(List<PowerBallDraw> results)
+    {
+        for (int j = 1; j <= PowerBallDraw.MAX_NUM; j++)
+        {
+            List<TrainingResult> trainingResults = new ArrayList<>();
+            int expectedNum=j;
+            for (int k = 0; k < TRAINING_REPEAT_SIZE; k++)
+            {
+                TrainingResult trainingResult = new TrainingResult();
+
+                for (int i = 0; i < TRAINING_SIZE; i++)
+                {
+                    trainingOneSetResultForPowerHit(results, trainingResult, num -> num==expectedNum);
+                }
+                trainingResults.add(trainingResult);
+                System.out.print(".");
+            }
+            LogUtil.consoleLog("");
+
+            TrainingResult finalResult = getAverageTrainingResult(trainingResults);
+
+            LogUtil.consoleLog("PowerHit Benchmark("+expectedNum+"):" + finalResult.toString());
+
+        }
+    }
+
+    private void calculatePowerHitBenchMark(List<PowerBallDraw> results)
+    {
+        List<TrainingResult> trainingResults = new ArrayList<>();
+        for (int k = 0; k < TRAINING_REPEAT_SIZE; k++)
+        {
+            TrainingResult trainingResult = new TrainingResult();
+
+            for (int i = 0; i < TRAINING_SIZE; i++)
+            {
+                trainingOneSetResultForPowerHit(results, trainingResult, j -> true);
+            }
+            trainingResults.add(trainingResult);
+            System.out.print(".");
+        }
+        LogUtil.consoleLog("");
+
+        TrainingResult finalResult = getAverageTrainingResult(trainingResults);
+
+        LogUtil.consoleLog("PowerHit Benchmark:" + finalResult.toString());
+    }
+
+    private void calculatePowerBallBenchMark(List<PowerBallDraw> results)
+    {
         List<TrainingResult> trainingResults = new ArrayList<>();
         for (int k = 0; k < TRAINING_REPEAT_SIZE; k++)
         {
@@ -49,56 +110,6 @@ public class PowerBallTrainer
         TrainingResult finalResult = getAverageTrainingResult(trainingResults);
 
         LogUtil.consoleLog("PowerBall Benchmark:" + finalResult.toString());
-
-        trainingResults = new ArrayList<>();
-        for (int k = 0; k < TRAINING_REPEAT_SIZE; k++)
-        {
-            TrainingResult trainingResult = new TrainingResult();
-
-            for (int i = 0; i < TRAINING_SIZE; i++)
-            {
-                trainingOneSetResultForPowerHit(results, trainingResult, j -> true);
-            }
-            trainingResults.add(trainingResult);
-            System.out.print(".");
-        }
-        LogUtil.consoleLog("");
-
-        finalResult = getAverageTrainingResult(trainingResults);
-
-        LogUtil.consoleLog("PowerHit Benchmark:" + finalResult.toString());
-
-        for (int j = 1; j <= PowerBallDraw.MAX_NUM; j++)
-        {
-            trainingResults = new ArrayList<>();
-            int expectedNum=j;
-            for (int k = 0; k < TRAINING_REPEAT_SIZE; k++)
-            {
-                TrainingResult trainingResult = new TrainingResult();
-
-                for (int i = 0; i < TRAINING_SIZE; i++)
-                {
-                    trainingOneSetResultForPowerHit(results, trainingResult, num -> num==expectedNum);
-                }
-                trainingResults.add(trainingResult);
-                System.out.print(".");
-            }
-            LogUtil.consoleLog("");
-
-            finalResult = getAverageTrainingResult(trainingResults);
-
-            LogUtil.consoleLog("PowerHit Benchmark("+expectedNum+"):" + finalResult.toString());
-
-        }
-    }
-
-    private void trainingOneSetResultForPowerHit(List<PowerBallDraw> results, TrainingResult trainingResult, Predicate<Integer> predicate)
-    {
-        for (PowerBallDraw draw : results)
-        {
-            int division = draw.checkWinPowerHit(PowerBallDraw.generateDraw(predicate));
-            trainingResult.addResult(division);
-        }
     }
 
     private TrainingResult getAverageTrainingResult(List<TrainingResult> trainingResults)
@@ -126,25 +137,30 @@ public class PowerBallTrainer
     private void getRideAbnormalResults(List<TrainingResult> trainingResults)
     {
         Collections.sort(trainingResults, (r1, r2) -> r1.getTotalDivision().compareTo(r2.getTotalDivision()));
-        trainingResults.remove(0);
-        trainingResults.remove(0);
-        trainingResults.remove(0);
-        trainingResults.remove(trainingResults.size() - 1);
-        trainingResults.remove(trainingResults.size() - 1);
-        trainingResults.remove(trainingResults.size() - 1);
+        //temporary just remove first and last three elements
+        IntStream.range(1,10).forEach(i -> {
+            trainingResults.remove(0);
+            trainingResults.remove(trainingResults.size() - 1);
+        });
     }
 
     private void trainingOneSetResult(List<PowerBallDraw> results, TrainingResult trainingResult, Predicate<Integer> predicate)
     {
-        for (PowerBallDraw draw : results)
-        {
+        results.stream().forEach(r ->
             //this is to make even with the power hit
-            for (int i = 0; i < 20; i++)
-            {
-                int division = draw.checkWin(PowerBallDraw.generateDraw(predicate));
+            IntStream.range(1,20).forEach(i -> {
+                int division = r.checkWin(PowerBallDraw.generateDraw(predicate));
                 trainingResult.addResult(division);
-            }
-        }
+            })
+        );
+    }
+
+    private void trainingOneSetResultForPowerHit(List<PowerBallDraw> results, TrainingResult trainingResult, Predicate<Integer> predicate)
+    {
+        results.stream().forEach(r -> {
+            int division = r.checkWinPowerHit(PowerBallDraw.generateDraw(predicate));
+            trainingResult.addResult(division);
+        });
     }
 }
 
