@@ -28,8 +28,6 @@ public class PowerBallDraw extends Draw
 
     public int checkWinPowerHit(PowerBallDraw draw)
     {
-        Double differ = getDiffer(sortedNums, draw.getSortedNums());
-
         boolean powerBallCheck = true;
 
         int division = getDivision(sortedNums, draw.getSortedNums(), powerBallCheck);
