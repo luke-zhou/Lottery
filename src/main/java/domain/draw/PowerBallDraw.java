@@ -1,5 +1,7 @@
 package domain.draw;
 
+import domain.rule.Rule;
+
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -187,23 +189,45 @@ public class PowerBallDraw extends Draw
         return sortedNums;
     }
 
-    public static PowerBallDraw generateDraw(Predicate<Integer> predicate)
+    public static PowerBallDraw generateDraw(Rule rule)
     {
         Integer[] selection;
-        do {
+        PowerBallDraw draw;
+        do
+        {
             selection = randomGenerateSelection();
-        } while (Arrays.stream(selection).noneMatch(predicate));
+            int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
+            draw = new PowerBallDraw(selection, powerBallSelection);
+        } while (!draw.follow(rule));
 
-        int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
 
-        return new PowerBallDraw(selection, powerBallSelection);
+        return draw;
+    }
+
+    private boolean follow(Rule rule)
+    {
+        boolean result = false;
+        if (rule.getInvolvedNumberCount() == 0)
+        {
+            result = Arrays.stream(this.getNums()).anyMatch(i -> true);
+        }
+        else if (rule.getInvolvedNumberCount() == 1)
+        {
+            result = Arrays.stream(this.getNums()).anyMatch(i -> i == rule.getArguments().get(0));
+        }
+        else if (rule.getInvolvedNumberCount() == 2)
+        {
+            result = Arrays.stream(this.getNums()).anyMatch(i -> Arrays.stream(this.getNums()).anyMatch(j ->j==i+ rule.getArguments().get(0)));
+        }
+        return result;
     }
 
     private static Integer[] randomGenerateSelection()
     {
         Set<Integer> selectionSet = new HashSet<>();
 
-        while (selectionSet.size()<NUM_OF_BALL) {
+        while (selectionSet.size() < NUM_OF_BALL)
+        {
             selectionSet.add(random.nextInt(MAX_NUM) + 1);
         }
 

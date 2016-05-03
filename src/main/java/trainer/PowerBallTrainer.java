@@ -1,7 +1,8 @@
 package trainer;
 
 import domain.draw.PowerBallDraw;
-import domain.draw.result.TrainingResult;
+import domain.result.TrainingResult;
+import domain.rule.Rule;
 import util.CsvUtil;
 import util.LogUtil;
 
@@ -17,7 +18,7 @@ import java.util.stream.IntStream;
  */
 public class PowerBallTrainer
 {
-    private int TRAINING_SIZE = 31415;
+    private int TRAINING_SIZE = 314159;
     private int TRAINING_REPEAT_SIZE = 20;
 
     private File resultFile;
@@ -33,15 +34,27 @@ public class PowerBallTrainer
 
         LogUtil.consoleLog("PowerBall Result Sample Size: " + results.size());
 
-        calculatePowerBallBenchMark(results);
+//        calculatePowerBallBenchMark(results);
 
-        trainPowerHit(results, "PowerHit Benchmark", num -> true);
+//        trainPowerHit(results, "PowerHit Benchmark", Rule.NO_RULE);
 
-        IntStream.range(1, PowerBallDraw.MAX_NUM).forEach(i -> trainPowerHit(results, "PowerHit ("+i+")", num -> num==i));
+        IntStream.range(10, PowerBallDraw.MAX_NUM+1).forEach(i -> {
+            Rule rule = new Rule();
+            rule.setInvolvedNumberCount(1);
+            rule.getArguments().add(i);
+            trainPowerHit(results, "PowerHit ("+i+")", rule);
+        });
+
+        IntStream.range(1, 40).forEach(i -> {
+            Rule rule = new Rule();
+            rule.setInvolvedNumberCount(2);
+            rule.getArguments().add(i);
+            trainPowerHit(results, "PowerHit a=b+"+i, rule);
+        });
 
     }
 
-    private void trainPowerHit(List<PowerBallDraw> results, String message, Predicate<Integer> predicate)
+    private void trainPowerHit(List<PowerBallDraw> results, String message, Rule rule)
     {
         List<TrainingResult> trainingResults = new ArrayList<>();
         for (int k = 0; k < TRAINING_REPEAT_SIZE; k++)
@@ -50,7 +63,7 @@ public class PowerBallTrainer
 
             for (int i = 0; i < TRAINING_SIZE; i++)
             {
-                trainingOneSetResultForPowerHit(results, trainingResult, predicate);
+                trainingOneSetResultForPowerHit(results, trainingResult, rule);
             }
             trainingResults.add(trainingResult);
             System.out.print(".");
@@ -71,7 +84,7 @@ public class PowerBallTrainer
 
             for (int i = 0; i < TRAINING_SIZE; i++)
             {
-                trainingOneSetResult(results, trainingResult, j -> true);
+                trainingOneSetResult(results, trainingResult, Rule.NO_RULE);
             }
             trainingResults.add(trainingResult);
             System.out.print(".");
@@ -108,21 +121,21 @@ public class PowerBallTrainer
         });
     }
 
-    private void trainingOneSetResult(List<PowerBallDraw> results, TrainingResult trainingResult, Predicate<Integer> predicate)
+    private void trainingOneSetResult(List<PowerBallDraw> results, TrainingResult trainingResult, Rule rule)
     {
         results.stream().forEach(r ->
                 //this is to make even with the power hit
-                IntStream.range(1, 20).forEach(i -> {
-                    int division = r.checkWin(PowerBallDraw.generateDraw(predicate));
+                IntStream.range(0, 20).forEach(i -> {
+                    int division = r.checkWin(PowerBallDraw.generateDraw(rule));
                     trainingResult.addResult(division);
                 })
         );
     }
 
-    private void trainingOneSetResultForPowerHit(List<PowerBallDraw> results, TrainingResult trainingResult, Predicate<Integer> predicate)
+    private void trainingOneSetResultForPowerHit(List<PowerBallDraw> results, TrainingResult trainingResult, Rule rule)
     {
         results.stream().forEach(r -> {
-            int division = r.checkWinPowerHit(PowerBallDraw.generateDraw(predicate));
+            int division = r.checkWinPowerHit(PowerBallDraw.generateDraw(rule));
             trainingResult.addResult(division);
         });
     }

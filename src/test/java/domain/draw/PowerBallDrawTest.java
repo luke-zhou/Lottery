@@ -1,5 +1,6 @@
 package domain.draw;
 
+import domain.rule.Rule;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
@@ -122,14 +123,28 @@ public class PowerBallDrawTest
     @Test
     public void generateDraw() throws Exception
     {
-        System.out.println(PowerBallDraw.generateDraw(i->true));
+        System.out.println(PowerBallDraw.generateDraw(Rule.NO_RULE));
 
     }
 
     @Test
-    public void generateDraw_with7() throws Exception
+    public void generateDraw_with_1_7() throws Exception
     {
-        System.out.println(PowerBallDraw.generateDraw(i->i==7));
+        Rule rule = new Rule();
+        rule.setInvolvedNumberCount(1);
+        rule.getArguments().add(7);
+        System.out.println(PowerBallDraw.generateDraw(rule));
+
+    }
+
+
+    @Test
+    public void generateDraw_with_2_1() throws Exception
+    {
+        Rule rule = new Rule();
+        rule.setInvolvedNumberCount(2);
+        rule.getArguments().add(1);
+        System.out.println(PowerBallDraw.generateDraw(rule));
 
     }
 }

@@ -1,4 +1,4 @@
-package domain.draw.result;
+package domain.result;
 
 /**
  * Created with IntelliJ IDEA.
