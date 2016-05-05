@@ -94,4 +94,5 @@ public class PowerBallTrainerTest
         System.out.println(result);
 
     }
+
 }

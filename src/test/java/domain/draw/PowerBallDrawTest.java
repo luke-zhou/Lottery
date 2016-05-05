@@ -130,8 +130,7 @@ public class PowerBallDrawTest
     @Test
     public void generateDraw_with_1_7() throws Exception
     {
-        Rule rule = new Rule();
-        rule.setInvolvedNumberCount(1);
+        Rule rule = new Rule(1);
         rule.getArguments().add(7);
         System.out.println(PowerBallDraw.generateDraw(rule));
 
@@ -141,8 +140,7 @@ public class PowerBallDrawTest
     @Test
     public void generateDraw_with_2_1() throws Exception
     {
-        Rule rule = new Rule();
-        rule.setInvolvedNumberCount(2);
+        Rule rule = new Rule(2);
         rule.getArguments().add(1);
         System.out.println(PowerBallDraw.generateDraw(rule));
 

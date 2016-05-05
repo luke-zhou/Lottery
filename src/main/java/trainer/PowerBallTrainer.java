@@ -36,19 +36,17 @@ public class PowerBallTrainer
 
 //        calculatePowerBallBenchMark(results);
 
-//        trainPowerHit(results, "PowerHit Benchmark", Rule.NO_RULE);
+        trainPowerHit(results, "PowerHit Benchmark", Rule.NO_RULE);
 
         IntStream.range(10, PowerBallDraw.MAX_NUM+1).forEach(i -> {
-            Rule rule = new Rule();
-            rule.setInvolvedNumberCount(1);
+            Rule rule = new Rule(1);
             rule.getArguments().add(i);
             trainPowerHit(results, "PowerHit ("+i+")", rule);
         });
 
         IntStream.range(1, 40).forEach(i -> {
-            Rule rule = new Rule();
+            Rule rule = new Rule(2);
             rule.setInvolvedNumberCount(2);
-            rule.getArguments().add(i);
             trainPowerHit(results, "PowerHit a=b+"+i, rule);
         });
 

@@ -193,9 +193,11 @@ public class PowerBallDraw extends Draw
     {
         Integer[] selection;
         PowerBallDraw draw;
+        Integer[] protential ={32,20,26,4,19,34,23,29,5,7,9,24};
         do
         {
-            selection = randomGenerateSelection();
+//            selection = randomGenerateSelection();
+            selection = randomGenerateSelection(protential);
             int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
             draw = new PowerBallDraw(selection, powerBallSelection);
         } while (!draw.follow(rule));
@@ -229,6 +231,20 @@ public class PowerBallDraw extends Draw
         while (selectionSet.size() < NUM_OF_BALL)
         {
             selectionSet.add(random.nextInt(MAX_NUM) + 1);
+        }
+
+        return selectionSet.toArray(new Integer[NUM_OF_BALL]);
+    }
+
+    private static Integer[] randomGenerateSelection(Integer[] protentialNums)
+    {
+        Set<Integer> selectionSet = new HashSet<>();
+
+        while (selectionSet.size() < NUM_OF_BALL)
+        {
+            int num = random.nextInt(protentialNums.length);
+
+            selectionSet.add(protentialNums[num]);
         }
 
         return selectionSet.toArray(new Integer[NUM_OF_BALL]);

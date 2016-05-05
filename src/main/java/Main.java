@@ -1,3 +1,4 @@
+import analyser.PowerBallAnalyser;
 import trainer.PowerBallTrainer;
 
 import java.io.File;
@@ -15,5 +16,9 @@ public class Main
         PowerBallTrainer trainer = new PowerBallTrainer(powerBallResultCsv);
 
         trainer.start();
+
+        PowerBallAnalyser analyser = new PowerBallAnalyser(powerBallResultCsv);
+
+        analyser.start();
     }
 }

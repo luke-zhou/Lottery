@@ -9,20 +9,22 @@ import java.util.List;
  * Date: 3/05/2016
  * Time: 10:31 AM
  */
+//0
+//1:a=1
+//2:a=b+1
 public class Rule
 {
-    public static Rule NO_RULE;
-
-    static
-    {
-        NO_RULE = new Rule();
-        NO_RULE.setInvolvedNumberCount(0);
-    }
+    public static Rule NO_RULE = new Rule(0);
 
     String description;
     Integer involvedNumberCount;
     List<Integer> arguments = new ArrayList<>();
 
+
+    public Rule(Integer involvedNumberCount)
+    {
+        this.involvedNumberCount = involvedNumberCount;
+    }
 
     public String getDescription()
     {
