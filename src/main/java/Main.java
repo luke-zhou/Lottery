@@ -17,8 +17,6 @@ public class Main
 
         trainer.start();
 
-        PowerBallAnalyser analyser = new PowerBallAnalyser(powerBallResultCsv);
 
-        analyser.start();
     }
 }

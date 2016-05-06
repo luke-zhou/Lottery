@@ -3,7 +3,7 @@ package domain.draw;
 import domain.rule.Rule;
 
 import java.util.*;
-import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 /**
  * Created by Luke on 13/05/2014.
@@ -193,14 +193,28 @@ public class PowerBallDraw extends Draw
     {
         Integer[] selection;
         PowerBallDraw draw;
-        Integer[] protential ={32,20,26,4,19,34,23,29,5,7,9,24};
+        Integer[] potential = {32, 20, 26, 4, 19, 34, 23, 29, 5, 7, 9, 24};
         do
         {
-//            selection = randomGenerateSelection();
-            selection = randomGenerateSelection(protential);
+            selection = randomGenerateSelection();
             int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
             draw = new PowerBallDraw(selection, powerBallSelection);
         } while (!draw.follow(rule));
+
+
+        return draw;
+    }
+
+    public static PowerBallDraw generateDraw(List<List<Integer>> potentialNumsGroup)
+    {
+        Integer[] selection;
+        PowerBallDraw draw;
+        do
+        {
+            selection = randomGenerateSelection(potentialNumsGroup);
+            int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
+            draw = new PowerBallDraw(selection, powerBallSelection);
+        } while (!draw.follow(Rule.NO_RULE));
 
 
         return draw;
@@ -219,7 +233,7 @@ public class PowerBallDraw extends Draw
         }
         else if (rule.getInvolvedNumberCount() == 2)
         {
-            result = Arrays.stream(this.getNums()).anyMatch(i -> Arrays.stream(this.getNums()).anyMatch(j ->j==i+ rule.getArguments().get(0)));
+            result = Arrays.stream(this.getNums()).anyMatch(i -> Arrays.stream(this.getNums()).anyMatch(j -> j == i + rule.getArguments().get(0)));
         }
         return result;
     }
@@ -236,15 +250,16 @@ public class PowerBallDraw extends Draw
         return selectionSet.toArray(new Integer[NUM_OF_BALL]);
     }
 
-    private static Integer[] randomGenerateSelection(Integer[] protentialNums)
+    private static Integer[] randomGenerateSelection(List<List<Integer>> potentialNumsGroup)
     {
         Set<Integer> selectionSet = new HashSet<>();
 
         while (selectionSet.size() < NUM_OF_BALL)
         {
-            int num = random.nextInt(protentialNums.length);
-
-            selectionSet.add(protentialNums[num]);
+            List<Integer> potentialNums = new ArrayList<Integer>();
+            IntStream.range(0,selectionSet.size()+1).forEach(j->potentialNums.addAll(potentialNumsGroup.get(j)));
+            int num = random.nextInt(potentialNums.size());
+            selectionSet.add(potentialNums.get(num));
         }
 
         return selectionSet.toArray(new Integer[NUM_OF_BALL]);

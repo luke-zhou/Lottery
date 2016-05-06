@@ -13,19 +13,15 @@ import java.util.stream.Collectors;
  */
 public class PowerBallAnalyser
 {
-    private File resultFile;
+    private List<PowerBallDraw> results;
 
-    public PowerBallAnalyser(File resultFile)
+    public PowerBallAnalyser(List<PowerBallDraw> results)
     {
-        this.resultFile = resultFile;
+        this.results = results;
     }
 
-    public void start()
+    public List<AnalyseResult> start()
     {
-        List<PowerBallDraw> results = CsvUtil.loadPowerData(resultFile);
-
-        LogUtil.consoleLog("PowerBall Result Sample Size: " + results.size());
-
         Map<Integer, Integer> countMap = new HashMap<>();
 
         results.stream().forEach(r ->{
@@ -42,5 +38,7 @@ public class PowerBallAnalyser
         Collections.sort(analyseResults);
 
         analyseResults.stream().forEach(System.out::println);
+
+        return analyseResults;
     }
 }
