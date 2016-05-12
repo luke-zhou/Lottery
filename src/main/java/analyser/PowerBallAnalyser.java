@@ -24,12 +24,15 @@ public class PowerBallAnalyser
     public List<AnalyseResult> start()
     {
         Map<Integer, Integer> countMap = new HashMap<>();
+        Map<Integer, Integer> powerBallcountMap = new HashMap<>();
 
         results.stream().forEach(r ->{
             Arrays.stream(r.getNums()).forEach(num->{
                 int count = countMap.containsKey(num) ? countMap.get(num) : 0;
                 countMap.put(num, count+1);
             });
+            int count = countMap.containsKey(r.getPowerBall()) ? countMap.get(r.getPowerBall()) +1: 1;
+            powerBallcountMap.put(r.getPowerBall(), count) ;
         });
 
 //        countMap.entrySet().stream().forEach(System.out::println);
