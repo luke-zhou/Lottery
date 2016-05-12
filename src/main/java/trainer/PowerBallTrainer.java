@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
  */
 public class PowerBallTrainer
 {
-    private int TRAINING_SIZE = 314159;
+    private int TRAINING_SIZE = 31415;
     private int TRAINING_REPEAT_SIZE = 20;
 
     private File resultFile;
@@ -39,42 +39,63 @@ public class PowerBallTrainer
 
         List<AnalyseResult> analyseResults = analyser.start();
 
-        List<List<Integer>> potentialNumsGroup = new ArrayList<>();
+        List<List<Integer>> potentialNumsGroup = analyser.groupResultByFrequency(analyseResults);
 
-        IntStream.range(0, PowerBallDraw.NUM_OF_BALL).forEach(i -> {
-            List<Integer> potentialNums = new ArrayList<>();
-            int sampleSize = results.size();
-            while(!analyseResults.isEmpty())
-            {
-                AnalyseResult analyseResult = analyseResults.remove(0);
-                sampleSize -= analyseResult.getCount();
-                potentialNums.add(analyseResult.getNum());
-                if (sampleSize <= 0)
-                {
-                    break;
-                }
-            }
-            potentialNumsGroup.add(potentialNums);
-        });
 
-        trainFrequencyPowerHit(results, potentialNumsGroup, "PowerHit frequency Benchmark");
+//        trainFrequencyPowerHit(results, potentialNumsGroup, "PowerHit frequency Result");
+
+        trainFrequencyPowerBall(results, potentialNumsGroup, "PowerBall frequency Result");
 
 //        calculatePowerBallBenchMark(results);
 
-//        trainPowerHit(results, "PowerHit Benchmark", Rule.NO_RULE);
-//
-//        IntStream.range(10, PowerBallDraw.MAX_NUM+1).forEach(i -> {
-//            Rule rule = new Rule(1);
-//            rule.getArguments().add(i);
-//            trainPowerHit(results, "PowerHit ("+i+")", rule);
-//        });
-//
-//        IntStream.range(1, 40).forEach(i -> {
-//            Rule rule = new Rule(2);
-//            rule.setInvolvedNumberCount(2);
-//            trainPowerHit(results, "PowerHit a=b+"+i, rule);
-//        });
+//        calculatePowerHitBenchMark(results);
 
+//        calculatePowerHitOneNumberExisting(results);
+//        calculatePowerHitTwoNumberRelation(results);
+    }
+
+    private void calculatePowerHitOneNumberExisting(List<PowerBallDraw> results)
+    {
+        IntStream.range(10, PowerBallDraw.MAX_NUM + 1).forEach(i -> {
+            Rule rule = new Rule(1);
+            rule.getArguments().add(i);
+            trainPowerHit(results, "PowerHit (" + i + ")", rule);
+        });
+    }
+
+    private void calculatePowerHitTwoNumberRelation(List<PowerBallDraw> results)
+    {
+        IntStream.range(1, 40).forEach(i -> {
+            Rule rule = new Rule(2);
+            rule.setInvolvedNumberCount(2);
+            trainPowerHit(results, "PowerHit a=b+" + i, rule);
+        });
+    }
+
+    private void calculatePowerHitBenchMark(List<PowerBallDraw> results)
+    {
+        trainPowerHit(results, "PowerHit Benchmark", Rule.NO_RULE);
+    }
+
+    private void trainFrequencyPowerBall(List<PowerBallDraw> results, List<List<Integer>> potentialNumsGroup, String message)
+    {
+        List<TrainingResult> trainingResults = new ArrayList<>();
+        for (int k = 0; k < TRAINING_REPEAT_SIZE; k++)
+        {
+            TrainingResult trainingResult = new TrainingResult();
+
+            for (int i = 0; i < TRAINING_SIZE; i++)
+            {
+                trainingOneSetResultForFrequency(results, potentialNumsGroup, trainingResult);
+            }
+            trainingResults.add(trainingResult);
+            System.out.print(".");
+        }
+        LogUtil.consoleLog("");
+
+        TrainingResult finalResult = getAverageTrainingResult(trainingResults);
+
+        LogUtil.consoleLog(message + ":" + finalResult.toString());
     }
 
     private void trainFrequencyPowerHit(List<PowerBallDraw> results, List<List<Integer>> potentialNumsGroup, String message)
@@ -171,6 +192,17 @@ public class PowerBallTrainer
                 //this is to make even with the power hit
                 IntStream.range(0, 20).forEach(i -> {
                     int division = r.checkWin(PowerBallDraw.generateDraw(rule));
+                    trainingResult.addResult(division);
+                })
+        );
+    }
+
+    private void trainingOneSetResultForFrequency(List<PowerBallDraw> results, List<List<Integer>> potentialNumsGroup, TrainingResult trainingResult)
+    {
+        results.stream().forEach(r ->
+                //this is to make even with the power hit
+                IntStream.range(0, 20).forEach(i -> {
+                    int division = r.checkWin(PowerBallDraw.generateDraw(potentialNumsGroup));
                     trainingResult.addResult(division);
                 })
         );

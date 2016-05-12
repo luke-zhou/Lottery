@@ -7,6 +7,7 @@ import util.LogUtil;
 import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Created by Luke on 5/05/2016.
@@ -31,7 +32,7 @@ public class PowerBallAnalyser
             });
         });
 
-        countMap.entrySet().stream().forEach(System.out::println);
+//        countMap.entrySet().stream().forEach(System.out::println);
         List<AnalyseResult> analyseResults = countMap.entrySet().stream()
                 .map(e -> new AnalyseResult(e.getKey(), e.getValue())).collect(Collectors.toList());
 
@@ -40,5 +41,27 @@ public class PowerBallAnalyser
         analyseResults.stream().forEach(System.out::println);
 
         return analyseResults;
+    }
+
+    public List<List<Integer>> groupResultByFrequency(List<AnalyseResult> analyseResults)
+    {
+        List<List<Integer>> potentialNumsGroup = new ArrayList<>();
+        IntStream.range(0, PowerBallDraw.NUM_OF_BALL).forEach(i -> {
+            List<Integer> potentialNums = new ArrayList<>();
+            int sampleSize = results.size();
+            while(!analyseResults.isEmpty())
+            {
+                AnalyseResult analyseResult = analyseResults.remove(0);
+                sampleSize -= analyseResult.getCount();
+                potentialNums.add(analyseResult.getNum());
+                if (sampleSize <= 0)
+                {
+                    break;
+                }
+            }
+            potentialNumsGroup.add(potentialNums);
+        });
+
+        return potentialNumsGroup;
     }
 }
