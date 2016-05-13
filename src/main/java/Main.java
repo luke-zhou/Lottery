@@ -22,9 +22,9 @@ public class Main
 
         PowerBallTrainer trainer = new PowerBallTrainer(powerBallResultCsv);
 
-//        trainer.start();
+        trainer.start();
 
-        generateDraws(powerBallResultCsv);
+//        generateDraws(powerBallResultCsv);
 
     }
 
@@ -36,11 +36,8 @@ public class Main
 
         PowerBallAnalyser analyser = new PowerBallAnalyser(results);
 
-        List<AnalyseResult> analyseResults = analyser.start();
+        AnalyseResult analyseResult = analyser.start();
 
-        List<List<Integer>> potentialNumsGroup = analyser.groupResultByFrequency(analyseResults);
-
-
-       IntStream.range(0,20).mapToObj(i -> PowerBallDraw.generateDraw(potentialNumsGroup)).forEach(System.out::println);
+       IntStream.range(0,20).mapToObj(i -> PowerBallDraw.generateDraw(analyseResult.getPotentialNumsGroup())).forEach(System.out::println);
     }
 }

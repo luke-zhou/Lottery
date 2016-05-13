@@ -37,14 +37,11 @@ public class PowerBallTrainer
 
         PowerBallAnalyser analyser = new PowerBallAnalyser(results);
 
-        List<AnalyseResult> analyseResults = analyser.start();
-
-        List<List<Integer>> potentialNumsGroup = analyser.groupResultByFrequency(analyseResults);
-
+        AnalyseResult analyseResult = analyser.start();
 
 //        trainFrequencyPowerHit(results, potentialNumsGroup, "PowerHit frequency Result");
 
-        trainFrequencyPowerBall(results, potentialNumsGroup, "PowerBall frequency Result");
+        trainFrequencyPowerBall(results, analyseResult.getPotentialNumsGroup(), "PowerBall frequency Result");
 
 //        calculatePowerBallBenchMark(results);
 

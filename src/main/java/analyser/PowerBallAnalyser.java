@@ -21,50 +21,19 @@ public class PowerBallAnalyser
         this.results = results;
     }
 
-    public List<AnalyseResult> start()
+    public AnalyseResult start()
     {
-        Map<Integer, Integer> countMap = new HashMap<>();
-        Map<Integer, Integer> powerBallcountMap = new HashMap<>();
+        AnalyseResult analyseResult = new AnalyseResult(results.size());
+
+        Map<Integer, Integer> powerBallLastResultMap = new HashMap<>();
 
         results.stream().forEach(r ->{
-            Arrays.stream(r.getNums()).forEach(num->{
-                int count = countMap.containsKey(num) ? countMap.get(num) : 0;
-                countMap.put(num, count+1);
-            });
-            int count = countMap.containsKey(r.getPowerBall()) ? countMap.get(r.getPowerBall()) +1: 1;
-            powerBallcountMap.put(r.getPowerBall(), count) ;
+            Arrays.stream(r.getNums()).forEach(num->analyseResult.putNumFrequency(num, analyseResult.getNumFrequency(num)+1));
+            analyseResult.putPowerBallFrequency(r.getPowerBall(), analyseResult.getPowerBallFrequency(r.getPowerBall())+1) ;
         });
 
-//        countMap.entrySet().stream().forEach(System.out::println);
-        List<AnalyseResult> analyseResults = countMap.entrySet().stream()
-                .map(e -> new AnalyseResult(e.getKey(), e.getValue())).collect(Collectors.toList());
+        analyseResult.finalize();
 
-        Collections.sort(analyseResults);
-
-        analyseResults.stream().forEach(System.out::println);
-
-        return analyseResults;
-    }
-
-    public List<List<Integer>> groupResultByFrequency(List<AnalyseResult> analyseResults)
-    {
-        List<List<Integer>> potentialNumsGroup = new ArrayList<>();
-        IntStream.range(0, PowerBallDraw.NUM_OF_BALL).forEach(i -> {
-            List<Integer> potentialNums = new ArrayList<>();
-            int sampleSize = results.size();
-            while(!analyseResults.isEmpty())
-            {
-                AnalyseResult analyseResult = analyseResults.remove(0);
-                sampleSize -= analyseResult.getCount();
-                potentialNums.add(analyseResult.getNum());
-                if (sampleSize <= 0)
-                {
-                    break;
-                }
-            }
-            potentialNumsGroup.add(potentialNums);
-        });
-
-        return potentialNumsGroup;
+        return analyseResult;
     }
 }

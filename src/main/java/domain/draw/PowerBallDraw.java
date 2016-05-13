@@ -193,7 +193,6 @@ public class PowerBallDraw extends Draw
     {
         Integer[] selection;
         PowerBallDraw draw;
-        Integer[] potential = {32, 20, 26, 4, 19, 34, 23, 29, 5, 7, 9, 24};
         do
         {
             selection = randomGenerateSelection();
