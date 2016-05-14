@@ -1,5 +1,6 @@
 package domain.draw;
 
+import analyser.AnalyseResult;
 import domain.rule.Rule;
 
 import java.util.*;
@@ -204,14 +205,14 @@ public class PowerBallDraw extends Draw
         return draw;
     }
 
-    public static PowerBallDraw generateDraw(List<List<Integer>> potentialNumsGroup)
+    public static PowerBallDraw generateDraw(AnalyseResult analyseResult, Integer id)
     {
         Integer[] selection;
         PowerBallDraw draw;
         do
         {
-            selection = randomGenerateSelection(potentialNumsGroup);
-            int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
+            selection = randomGenerateSelection(analyseResult.getPotentialNumsGroup());
+            int powerBallSelection = randomGeneratePowerBall(analyseResult.getPowerBallLastResultIdMap(),analyseResult.getPowerBallMinDistanceMap(), id);
             draw = new PowerBallDraw(selection, powerBallSelection);
         } while (!draw.follow(Rule.NO_RULE));
 
@@ -262,5 +263,16 @@ public class PowerBallDraw extends Draw
         }
 
         return selectionSet.toArray(new Integer[NUM_OF_BALL]);
+    }
+
+    private static Integer randomGeneratePowerBall(Map<Integer, Integer> lastResultIdMap, Map<Integer, Integer> minDistanceMap, Integer id)
+    {
+        int randomResult;
+        do
+        {
+            randomResult = random.nextInt(MAX_POWER_BALL_NUM) + 1;
+        }while (lastResultIdMap.get(randomResult)+minDistanceMap.get(randomResult)>id);
+
+        return randomResult;
     }
 }

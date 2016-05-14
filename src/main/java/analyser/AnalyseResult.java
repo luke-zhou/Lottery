@@ -16,6 +16,7 @@ public class AnalyseResult
     private Map<Integer, Integer> numFrequencyMap = new HashMap<>();
     private Map<Integer, Integer> powerBallFrequencyMap = new HashMap<>();
     private Map<Integer, Integer> powerBallMinDistanceMap = new HashMap<>();
+    private Map<Integer, Integer> powerBallLastResultIdMap = new HashMap<>();
 
     private List<Frequency> numfrequencies = new ArrayList<>();
     private List<Frequency> powerBallfrequencies = new ArrayList<>();
@@ -49,12 +50,22 @@ public class AnalyseResult
 
     public Integer getPowerBallMinDistance(Integer powerBall)
     {
-        return powerBallMinDistanceMap.containsKey(powerBall) ? powerBallMinDistanceMap.get(powerBall) : 0;
+        return powerBallMinDistanceMap.containsKey(powerBall) ? powerBallMinDistanceMap.get(powerBall) : Integer.MAX_VALUE;
     }
 
     public void putPowerBallMinDistance(Integer powerBall, Integer distance)
     {
         powerBallMinDistanceMap.put(powerBall, distance);
+    }
+
+    public Integer getPowerBallLastResultId(Integer powerBall)
+    {
+        return powerBallLastResultIdMap.containsKey(powerBall) ? powerBallLastResultIdMap.get(powerBall) : 0;
+    }
+
+    public void putPowerBallLastResultId(Integer powerBall, Integer id)
+    {
+        powerBallLastResultIdMap.put(powerBall, id);
     }
 
     public void finalize()
@@ -71,7 +82,10 @@ public class AnalyseResult
         powerBallfrequencies.stream().forEach(System.out::println);
 
         potentialNumsGroup = groupResultByFrequency();
-
+        LogUtil.consoleLog("power ball last result id:");
+        powerBallLastResultIdMap.entrySet().stream().forEach(System.out::println);
+        LogUtil.consoleLog("power ball min distance:");
+        powerBallMinDistanceMap.entrySet().stream().forEach(System.out::println);
     }
 
     private List<List<Integer>> groupResultByFrequency()
@@ -113,6 +127,16 @@ public class AnalyseResult
     {
         return potentialNumsGroup;
     }
+
+    public Map<Integer, Integer> getPowerBallMinDistanceMap()
+    {
+        return powerBallMinDistanceMap;
+    }
+
+    public Map<Integer, Integer> getPowerBallLastResultIdMap()
+    {
+        return powerBallLastResultIdMap;
+    }
 }
 
 class Frequency implements Comparable<Frequency>
@@ -141,6 +165,8 @@ class Frequency implements Comparable<Frequency>
     {
         return count;
     }
+
+
 
     @Override
     public String toString()

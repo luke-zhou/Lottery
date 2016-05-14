@@ -1,13 +1,9 @@
 package analyser;
 
 import domain.draw.PowerBallDraw;
-import util.CsvUtil;
-import util.LogUtil;
 
-import java.io.File;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Luke on 5/05/2016.
@@ -25,11 +21,15 @@ public class PowerBallAnalyser
     {
         AnalyseResult analyseResult = new AnalyseResult(results.size());
 
-        Map<Integer, Integer> powerBallLastResultMap = new HashMap<>();
 
-        results.stream().forEach(r ->{
-            Arrays.stream(r.getNums()).forEach(num->analyseResult.putNumFrequency(num, analyseResult.getNumFrequency(num)+1));
-            analyseResult.putPowerBallFrequency(r.getPowerBall(), analyseResult.getPowerBallFrequency(r.getPowerBall())+1) ;
+        results.stream().forEach(r -> {
+            Arrays.stream(r.getNums()).forEach(num -> analyseResult.putNumFrequency(num, analyseResult.getNumFrequency(num) + 1));
+
+            int powerBall = r.getPowerBall();
+            analyseResult.putPowerBallFrequency(powerBall, analyseResult.getPowerBallFrequency(powerBall) + 1);
+            int lastResultId = analyseResult.getPowerBallLastResultId(powerBall);
+            analyseResult.putPowerBallLastResultId(powerBall, r.getId());
+            analyseResult.putPowerBallMinDistance(powerBall, Integer.min(r.getId() - lastResultId, analyseResult.getPowerBallMinDistance(powerBall)));
         });
 
         analyseResult.finalize();

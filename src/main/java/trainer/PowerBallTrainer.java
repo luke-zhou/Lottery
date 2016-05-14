@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
  */
 public class PowerBallTrainer
 {
-    private int TRAINING_SIZE = 31415;
+    private int TRAINING_SIZE = 314;
     private int TRAINING_REPEAT_SIZE = 20;
 
     private File resultFile;
@@ -41,7 +41,7 @@ public class PowerBallTrainer
 
 //        trainFrequencyPowerHit(results, potentialNumsGroup, "PowerHit frequency Result");
 
-        trainFrequencyPowerBall(results, analyseResult.getPotentialNumsGroup(), "PowerBall frequency Result");
+        trainFrequencyPowerBall(results, analyseResult, "PowerBall frequency Result");
 
 //        calculatePowerBallBenchMark(results);
 
@@ -74,7 +74,7 @@ public class PowerBallTrainer
         trainPowerHit(results, "PowerHit Benchmark", Rule.NO_RULE);
     }
 
-    private void trainFrequencyPowerBall(List<PowerBallDraw> results, List<List<Integer>> potentialNumsGroup, String message)
+    private void trainFrequencyPowerBall(List<PowerBallDraw> results, AnalyseResult analyseResult, String message)
     {
         List<TrainingResult> trainingResults = new ArrayList<>();
         for (int k = 0; k < TRAINING_REPEAT_SIZE; k++)
@@ -83,7 +83,7 @@ public class PowerBallTrainer
 
             for (int i = 0; i < TRAINING_SIZE; i++)
             {
-                trainingOneSetResultForFrequency(results, potentialNumsGroup, trainingResult);
+                trainingOneSetResultForFrequency(results, analyseResult, trainingResult);
             }
             trainingResults.add(trainingResult);
             System.out.print(".");
@@ -95,7 +95,7 @@ public class PowerBallTrainer
         LogUtil.consoleLog(message + ":" + finalResult.toString());
     }
 
-    private void trainFrequencyPowerHit(List<PowerBallDraw> results, List<List<Integer>> potentialNumsGroup, String message)
+    private void trainFrequencyPowerHit(List<PowerBallDraw> results, AnalyseResult analyseResult, String message)
     {
         List<TrainingResult> trainingResults = new ArrayList<>();
         for (int k = 0; k < TRAINING_REPEAT_SIZE; k++)
@@ -104,7 +104,7 @@ public class PowerBallTrainer
 
             for (int i = 0; i < TRAINING_SIZE; i++)
             {
-                trainingOneSetResultForFrequencyPowerHit(results, potentialNumsGroup, trainingResult);
+                trainingOneSetResultForFrequencyPowerHit(results, analyseResult, trainingResult);
             }
             trainingResults.add(trainingResult);
             System.out.print(".");
@@ -194,12 +194,12 @@ public class PowerBallTrainer
         );
     }
 
-    private void trainingOneSetResultForFrequency(List<PowerBallDraw> results, List<List<Integer>> potentialNumsGroup, TrainingResult trainingResult)
+    private void trainingOneSetResultForFrequency(List<PowerBallDraw> results, AnalyseResult analyseResult, TrainingResult trainingResult)
     {
         results.stream().forEach(r ->
                 //this is to make even with the power hit
                 IntStream.range(0, 20).forEach(i -> {
-                    int division = r.checkWin(PowerBallDraw.generateDraw(potentialNumsGroup));
+                    int division = r.checkWin(PowerBallDraw.generateDraw(analyseResult, r.getId()+1));
                     trainingResult.addResult(division);
                 })
         );
@@ -213,10 +213,10 @@ public class PowerBallTrainer
         });
     }
 
-    private void trainingOneSetResultForFrequencyPowerHit(List<PowerBallDraw> results, List<List<Integer>> potentialNumsGroup, TrainingResult trainingResult)
+    private void trainingOneSetResultForFrequencyPowerHit(List<PowerBallDraw> results, AnalyseResult analyseResult, TrainingResult trainingResult)
     {
         results.stream().forEach(r -> {
-            int division = r.checkWinPowerHit(PowerBallDraw.generateDraw(potentialNumsGroup));
+            int division = r.checkWinPowerHit(PowerBallDraw.generateDraw(analyseResult, r.getId()+1));
             trainingResult.addResult(division);
         });
     }

@@ -8,7 +8,6 @@ import util.LogUtil;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -38,6 +37,6 @@ public class Main
 
         AnalyseResult analyseResult = analyser.start();
 
-       IntStream.range(0,20).mapToObj(i -> PowerBallDraw.generateDraw(analyseResult.getPotentialNumsGroup())).forEach(System.out::println);
+        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDraw(analyseResult, results.size())).forEach(System.out::println);
     }
 }
