@@ -84,6 +84,9 @@ public class AnalyseResult
         potentialNumsGroup = groupResultByFrequency();
         LogUtil.consoleLog("power ball last result id:");
         powerBallLastResultIdMap.entrySet().stream().forEach(System.out::println);
+        IntStream.range(1, PowerBallDraw.MAX_POWER_BALL_NUM+1).forEach(i ->{
+            if (!powerBallMinDistanceMap.containsKey(i)) powerBallMinDistanceMap.put(i, 0);
+        });
         LogUtil.consoleLog("power ball min distance:");
         powerBallMinDistanceMap.entrySet().stream().forEach(System.out::println);
     }

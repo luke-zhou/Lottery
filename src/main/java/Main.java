@@ -15,9 +15,11 @@ import java.util.stream.IntStream;
  */
 public class Main
 {
+    private static final String RESULT_FILE_LOCATION = "data/Powerball-1042.csv";
+
     public static void main(String[] args) throws URISyntaxException
     {
-        File powerBallResultCsv = new File(Main.class.getResource("data/Powerball-1042.csv").toURI());
+        File powerBallResultCsv = new File(Main.class.getResource(RESULT_FILE_LOCATION).toURI());
 
         PowerBallTrainer trainer = new PowerBallTrainer(powerBallResultCsv);
 
@@ -35,8 +37,8 @@ public class Main
 
         PowerBallAnalyser analyser = new PowerBallAnalyser(results);
 
-        AnalyseResult analyseResult = analyser.start();
-
-        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDraw(analyseResult, results.size())).forEach(System.out::println);
+//        AnalyseResult analyseResult = analyser.start();
+//
+//        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDraw(analyseResult, results.size())).forEach(System.out::println);
     }
 }

@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 /**
@@ -19,7 +20,7 @@ import java.util.stream.IntStream;
  */
 public class PowerBallTrainer
 {
-    private int TRAINING_SIZE = 314;
+    private int TRAINING_SIZE = 31415;
     private int TRAINING_REPEAT_SIZE = 20;
 
     private File resultFile;
@@ -37,11 +38,11 @@ public class PowerBallTrainer
 
         PowerBallAnalyser analyser = new PowerBallAnalyser(results);
 
-        AnalyseResult analyseResult = analyser.start();
+        Map<Integer, AnalyseResult> analyseResultMap = analyser.start();
 
 //        trainFrequencyPowerHit(results, potentialNumsGroup, "PowerHit frequency Result");
 
-        trainFrequencyPowerBall(results, analyseResult, "PowerBall frequency Result");
+        trainFrequencyPowerBall(results, analyseResultMap, "PowerBall frequency Result");
 
 //        calculatePowerBallBenchMark(results);
 
@@ -74,7 +75,7 @@ public class PowerBallTrainer
         trainPowerHit(results, "PowerHit Benchmark", Rule.NO_RULE);
     }
 
-    private void trainFrequencyPowerBall(List<PowerBallDraw> results, AnalyseResult analyseResult, String message)
+    private void trainFrequencyPowerBall(List<PowerBallDraw> results, Map<Integer, AnalyseResult> analyseResultMap, String message)
     {
         List<TrainingResult> trainingResults = new ArrayList<>();
         for (int k = 0; k < TRAINING_REPEAT_SIZE; k++)
@@ -83,7 +84,7 @@ public class PowerBallTrainer
 
             for (int i = 0; i < TRAINING_SIZE; i++)
             {
-                trainingOneSetResultForFrequency(results, analyseResult, trainingResult);
+                trainingOneSetResultForFrequency(results, analyseResultMap, trainingResult);
             }
             trainingResults.add(trainingResult);
             System.out.print(".");
@@ -194,12 +195,12 @@ public class PowerBallTrainer
         );
     }
 
-    private void trainingOneSetResultForFrequency(List<PowerBallDraw> results, AnalyseResult analyseResult, TrainingResult trainingResult)
+    private void trainingOneSetResultForFrequency(List<PowerBallDraw> results, Map<Integer, AnalyseResult> analyseResultMap, TrainingResult trainingResult)
     {
         results.stream().forEach(r ->
                 //this is to make even with the power hit
                 IntStream.range(0, 20).forEach(i -> {
-                    int division = r.checkWin(PowerBallDraw.generateDraw(analyseResult, r.getId()+1));
+                    int division = r.checkWin(PowerBallDraw.generateDraw(analyseResultMap.get(r.getId()-1), r.getId()+1));
                     trainingResult.addResult(division);
                 })
         );

@@ -211,9 +211,19 @@ public class PowerBallDraw extends Draw
         PowerBallDraw draw;
         do
         {
-            selection = randomGenerateSelection(analyseResult.getPotentialNumsGroup());
-            int powerBallSelection = randomGeneratePowerBall(analyseResult.getPowerBallLastResultIdMap(),analyseResult.getPowerBallMinDistanceMap(), id);
-            draw = new PowerBallDraw(selection, powerBallSelection);
+            if (analyseResult == null)
+            {
+                selection = randomGenerateSelection();
+                int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
+                draw = new PowerBallDraw(selection, powerBallSelection);
+            }
+            else
+            {
+                selection = randomGenerateSelection(analyseResult.getPotentialNumsGroup());
+//                int powerBallSelection = randomGeneratePowerBall(analyseResult, id);
+                int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
+                draw = new PowerBallDraw(selection, powerBallSelection);
+            }
         } while (!draw.follow(Rule.NO_RULE));
 
 
@@ -265,13 +275,13 @@ public class PowerBallDraw extends Draw
         return selectionSet.toArray(new Integer[NUM_OF_BALL]);
     }
 
-    private static Integer randomGeneratePowerBall(Map<Integer, Integer> lastResultIdMap, Map<Integer, Integer> minDistanceMap, Integer id)
+    private static Integer randomGeneratePowerBall(AnalyseResult analyseResult, Integer id)
     {
         int randomResult;
         do
         {
             randomResult = random.nextInt(MAX_POWER_BALL_NUM) + 1;
-        }while (lastResultIdMap.get(randomResult)+minDistanceMap.get(randomResult)>id);
+        }while (analyseResult.getPowerBallLastResultId(randomResult)+analyseResult.getPowerBallMinDistance(randomResult)>id);
 
         return randomResult;
     }
