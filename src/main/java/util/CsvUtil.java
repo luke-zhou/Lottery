@@ -10,8 +10,11 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,25 +31,20 @@ public class CsvUtil
         try
         {
             CSVReader reader = new CSVReader(new FileReader(file));
-            String [] nextLine;
+            String[] nextLine;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             reader.readNext();
             while ((nextLine = reader.readNext()) != null)
             {
+                String[] lineContent = nextLine;
+                int id = Integer.valueOf(lineContent[0]);
+                Date date = sdf.parse(lineContent[1]);
+                Integer[] nums =IntStream.range(2,8).mapToObj(i->Integer.valueOf(lineContent[i])).toArray(size -> new Integer[size]);
 
-                    int id = Integer.valueOf(nextLine[0]);
-                    Date date = sdf.parse(nextLine[1]);
-                    Integer[] nums = {Integer.valueOf(nextLine[2]),
-                            Integer.valueOf(nextLine[3]),
-                            Integer.valueOf(nextLine[4]),
-                            Integer.valueOf(nextLine[5]),
-                            Integer.valueOf(nextLine[6]),
-                            Integer.valueOf(nextLine[7])};
-
-                    int powerBall = Integer.valueOf(nextLine[8]);
-                    PowerBallDraw draw = new PowerBallDraw(nums, powerBall);
-                    draw.setId(id);
-                    draw.setDate(date);
+                int powerBall = Integer.valueOf(lineContent[8]);
+                PowerBallDraw draw = new PowerBallDraw(nums, powerBall);
+                draw.setId(id);
+                draw.setDate(date);
                 draws.add(draw);
             }
         } catch (FileNotFoundException e)
