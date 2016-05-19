@@ -73,22 +73,22 @@ public class AnalyseResult
         numfrequencies = numFrequencyMap.entrySet().stream()
                 .map(e -> new Frequency(e.getKey(), e.getValue())).collect(Collectors.toList());
         Collections.sort(numfrequencies);
-        LogUtil.consoleLog("num frequency:");
-        numfrequencies.stream().forEach(System.out::println);
+//        LogUtil.consoleLog("num frequency:");
+//        numfrequencies.stream().forEach(System.out::println);
         powerBallfrequencies = powerBallFrequencyMap.entrySet().stream()
                 .map(e -> new Frequency(e.getKey(), e.getValue())).collect(Collectors.toList());
         Collections.sort(powerBallfrequencies);
-        LogUtil.consoleLog("power ball frequency:");
-        powerBallfrequencies.stream().forEach(System.out::println);
+//        LogUtil.consoleLog("power ball frequency:");
+//        powerBallfrequencies.stream().forEach(System.out::println);
 
         potentialNumsGroup = groupResultByFrequency();
-        LogUtil.consoleLog("power ball last result id:");
-        powerBallLastResultIdMap.entrySet().stream().forEach(System.out::println);
+//        LogUtil.consoleLog("power ball last result id:");
+//        powerBallLastResultIdMap.entrySet().stream().forEach(System.out::println);
         IntStream.range(1, PowerBallDraw.MAX_POWER_BALL_NUM+1).forEach(i ->{
             if (!powerBallMinDistanceMap.containsKey(i)) powerBallMinDistanceMap.put(i, 0);
         });
-        LogUtil.consoleLog("power ball min distance:");
-        powerBallMinDistanceMap.entrySet().stream().forEach(System.out::println);
+//        LogUtil.consoleLog("power ball min distance:");
+//        powerBallMinDistanceMap.entrySet().stream().forEach(System.out::println);
     }
 
     private List<List<Integer>> groupResultByFrequency()
@@ -139,6 +139,26 @@ public class AnalyseResult
     public Map<Integer, Integer> getPowerBallLastResultIdMap()
     {
         return powerBallLastResultIdMap;
+    }
+
+    public Integer getSampleSize()
+    {
+        return sampleSize;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "AnalyseResult{" +
+                "sampleSize=" + sampleSize +
+                ", numFrequencyMap=" + numFrequencyMap +
+                ", powerBallFrequencyMap=" + powerBallFrequencyMap +
+                ", powerBallMinDistanceMap=" + powerBallMinDistanceMap +
+                ", powerBallLastResultIdMap=" + powerBallLastResultIdMap +
+                ", numfrequencies=" + numfrequencies +
+                ", powerBallfrequencies=" + powerBallfrequencies +
+                ", potentialNumsGroup=" + potentialNumsGroup +
+                '}';
     }
 }
 

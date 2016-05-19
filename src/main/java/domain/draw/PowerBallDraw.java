@@ -157,7 +157,7 @@ public class PowerBallDraw extends Draw
     public String toString()
     {
         return "PowerBallDraw{" +
-                "nums=" + Arrays.toString(nums) +
+                "nums=" + Arrays.toString(sortedNums) +
                 ", powerBall=" + powerBall +
                 '}';
     }
@@ -284,5 +284,27 @@ public class PowerBallDraw extends Draw
         }while (analyseResult.getPowerBallLastResultId(randomResult)+analyseResult.getPowerBallMinDistance(randomResult)>id);
 
         return randomResult;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PowerBallDraw draw = (PowerBallDraw) o;
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(sortedNums, draw.sortedNums)) return false;
+        return powerBall != null ? powerBall.equals(draw.powerBall) : draw.powerBall == null;
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = Arrays.hashCode(sortedNums);
+        result = 31 * result + (powerBall != null ? powerBall.hashCode() : 0);
+        return result;
     }
 }

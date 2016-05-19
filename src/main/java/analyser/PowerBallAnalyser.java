@@ -26,13 +26,14 @@ public class PowerBallAnalyser
 
 
         results.stream().forEach(i -> {
-            AnalyseResult analyseResult = new AnalyseResult(results.size());
+            AnalyseResult analyseResult = new AnalyseResult(results.indexOf(i)+1);
 
             results.stream().filter(r -> r.getId() <= i.getId()).forEach(r -> {
                 Arrays.stream(r.getNums()).forEach(num -> analyseResult.putNumFrequency(num, analyseResult.getNumFrequency(num) + 1));
 
                 int powerBall = r.getPowerBall();
                 analyseResult.putPowerBallFrequency(powerBall, analyseResult.getPowerBallFrequency(powerBall) + 1);
+
                 int lastResultId = analyseResult.getPowerBallLastResultId(powerBall);
                 analyseResult.putPowerBallLastResultId(powerBall, r.getId());
                 analyseResult.putPowerBallMinDistance(powerBall, Integer.min(r.getId() - lastResultId, analyseResult.getPowerBallMinDistance(powerBall)));

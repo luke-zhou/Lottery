@@ -8,6 +8,7 @@ import util.LogUtil;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 /**
@@ -23,9 +24,9 @@ public class Main
 
         PowerBallTrainer trainer = new PowerBallTrainer(powerBallResultCsv);
 
-        trainer.start();
+//        trainer.start();
 
-//        generateDraws(powerBallResultCsv);
+        generateDraws(powerBallResultCsv);
 
     }
 
@@ -37,8 +38,9 @@ public class Main
 
         PowerBallAnalyser analyser = new PowerBallAnalyser(results);
 
-//        AnalyseResult analyseResult = analyser.start();
-//
-//        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDraw(analyseResult, results.size())).forEach(System.out::println);
+        Map<Integer, AnalyseResult> analyseResults = analyser.start();
+
+        LogUtil.consoleLog("generate for 1044");
+        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDraw(analyseResults.get(1043), results.size())).forEach(System.out::println);
     }
 }
