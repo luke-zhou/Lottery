@@ -1,6 +1,7 @@
 package analyser;
 
 import domain.draw.PowerBallDraw;
+import domain.result.PowerBallResult;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,25 +25,29 @@ public class PowerBallAnalyser
     {
         Map<Integer, AnalyseResult> analyseResultMap = new HashMap<>();
 
-
-        results.stream().forEach(i -> {
-            AnalyseResult analyseResult = new AnalyseResult(results.indexOf(i)+1);
-
-            results.stream().filter(r -> r.getId() <= i.getId()).forEach(r -> {
-                Arrays.stream(r.getNums()).forEach(num -> analyseResult.putNumFrequency(num, analyseResult.getNumFrequency(num) + 1));
-
-                int powerBall = r.getPowerBall();
-                analyseResult.putPowerBallFrequency(powerBall, analyseResult.getPowerBallFrequency(powerBall) + 1);
-
-                int lastResultId = analyseResult.getPowerBallLastResultId(powerBall);
-                analyseResult.putPowerBallLastResultId(powerBall, r.getId());
-                analyseResult.putPowerBallMinDistance(powerBall, Integer.min(r.getId() - lastResultId, analyseResult.getPowerBallMinDistance(powerBall)));
-            });
-
-            analyseResult.finalize();
-            analyseResultMap.put(i.getId(), analyseResult);
+        results.stream().forEach(draw -> {
+            AnalyseResult analyseResult = calculateAnalyseResult(draw);
+            analyseResultMap.put(draw.getId(), analyseResult);
         });
 
         return analyseResultMap;
+    }
+
+    private AnalyseResult calculateAnalyseResult(PowerBallDraw draw)
+    {
+        AnalyseResult analyseResult = new AnalyseResult(results.indexOf(draw)+1);
+
+        results.stream().filter(r -> r.getId() <= draw.getId()).forEach(r -> {
+            analyseResult.updateNumFrequency(r);
+
+            analyseResult.updatePowerBallFrequency(r.getPowerBall());
+
+            analyseResult.updatePowerBallMinDistancePattern(r.getPowerBall(), r.getId());
+
+        });
+
+        analyseResult.finalize();
+
+        return analyseResult;
     }
 }

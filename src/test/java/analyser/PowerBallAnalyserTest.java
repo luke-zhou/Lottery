@@ -3,6 +3,7 @@ package analyser;
 import domain.draw.PowerBallDraw;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +69,7 @@ public class PowerBallAnalyserTest
     {
         Map<Integer, AnalyseResult> result = powerBallAnalyser.start();
 
-//        result.entrySet().forEach(System.out::println);
+        result.entrySet().forEach(System.out::println);
 
         assertTrue(result.get(877).getSampleSize() == 1);
         assertTrue(result.get(878).getSampleSize() == 2);

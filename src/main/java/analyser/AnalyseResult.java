@@ -33,16 +33,6 @@ public class AnalyseResult
         return numFrequencyMap.containsKey(num) ? numFrequencyMap.get(num) : 0;
     }
 
-    public void putNumFrequency(Integer num, Integer frequency)
-    {
-        numFrequencyMap.put(num, frequency);
-    }
-
-    public void putPowerBallFrequency(Integer powerBall, Integer frequency)
-    {
-        powerBallFrequencyMap.put(powerBall, frequency);
-    }
-
     public Integer getPowerBallFrequency(Integer powerBall)
     {
         return powerBallFrequencyMap.containsKey(powerBall) ? powerBallFrequencyMap.get(powerBall) : 0;
@@ -53,9 +43,26 @@ public class AnalyseResult
         return powerBallMinDistanceMap.containsKey(powerBall) ? powerBallMinDistanceMap.get(powerBall) : Integer.MAX_VALUE;
     }
 
-    public void putPowerBallMinDistance(Integer powerBall, Integer distance)
+    public void updatePowerBallMinDistancePattern(Integer powerBall, Integer drawId)
     {
-        powerBallMinDistanceMap.put(powerBall, distance);
+        Integer lastResultId = getPowerBallLastResultId(powerBall);
+        if (lastResultId !=0) {
+            powerBallMinDistanceMap.put(powerBall, Integer.min(drawId - lastResultId, getPowerBallMinDistance(powerBall)));
+        }
+        else{
+            powerBallMinDistanceMap.put(powerBall, Integer.MAX_VALUE);
+        }
+        putPowerBallLastResultId(powerBall, drawId);
+    }
+
+    public void updateNumFrequency(PowerBallDraw draw)
+    {
+        Arrays.stream(draw.getNums()).forEach(num -> numFrequencyMap.put(num, getNumFrequency(num) + 1));
+    }
+
+    public void updatePowerBallFrequency(int powerBall)
+    {
+        powerBallFrequencyMap.put(powerBall, getPowerBallFrequency(powerBall) + 1);
     }
 
     public Integer getPowerBallLastResultId(Integer powerBall)

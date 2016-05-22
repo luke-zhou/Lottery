@@ -50,16 +50,17 @@ public class PowerBallDrawTest
     public void testToString() throws Exception
     {
        String result = draw.toString();
-        String expected = "PowerBallDraw{nums=[4, 8, 24, 13, 3, 6], powerBall=17}";
+
+        String expected = "PowerBallDraw{nums=[3, 4, 6, 8, 13, 24], powerBall=17}";
 
         assertEquals(expected, result);
     }
 
     @Test
-    public void testToStringSorted() throws Exception
+    public void testToStringUnsorted() throws Exception
     {
-        String result = draw.toStringSorted();
-        String expected = "PowerBallDraw{nums=[3, 4, 6, 8, 13, 24], powerBall=17}";
+        String result = draw.toStringUnSorted();
+        String expected = "PowerBallDraw{nums=[4, 8, 24, 13, 3, 6], powerBall=17}";
 
         assertEquals(expected, result);
     }

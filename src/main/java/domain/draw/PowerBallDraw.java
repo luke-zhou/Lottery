@@ -144,10 +144,10 @@ public class PowerBallDraw extends Draw
         return calculateDivision(sortedNums, draw.getSortedNums(), powerBall == draw.getPowerBall());
     }
 
-    public String toStringSorted()
+    public String toStringUnSorted()
     {
         return "PowerBallDraw{" +
-                "nums=" + Arrays.toString(sortedNums) +
+                "nums=" + Arrays.toString(nums) +
                 ", powerBall=" + powerBall +
                 '}';
 
