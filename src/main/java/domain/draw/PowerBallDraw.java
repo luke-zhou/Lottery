@@ -205,6 +205,11 @@ public class PowerBallDraw extends Draw
         return draw;
     }
 
+    public static PowerBallDraw generateRandomDraw()
+    {
+        return generateDraw(Rule.NO_RULE);
+    }
+
     public static PowerBallDraw generateDraw(AnalyseResult analyseResult, Integer id)
     {
         Integer[] selection;
@@ -220,8 +225,8 @@ public class PowerBallDraw extends Draw
             else
             {
                 selection = randomGenerateSelection(analyseResult.getPotentialNumsGroup());
-//                int powerBallSelection = randomGeneratePowerBall(analyseResult, id);
-                int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
+                int powerBallSelection = randomGeneratePowerBall(analyseResult, id);
+//                int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
                 draw = new PowerBallDraw(selection, powerBallSelection);
             }
         } while (!draw.follow(Rule.NO_RULE));

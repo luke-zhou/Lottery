@@ -8,12 +8,12 @@ package util;
  */
 public class LogUtil
 {
-    public static void consoleLog(String content)
+    public static void log(String content)
     {
         System.out.println(content);
     }
-    public static void consoleLog(int content)
+    public static void logProcessing()
     {
-        consoleLog(String.valueOf(content));
+        System.out.print(".");
     }
 }

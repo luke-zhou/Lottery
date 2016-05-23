@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
  */
 public class Main
 {
-    private static final String RESULT_FILE_LOCATION = "data/Powerball-1042.csv";
+    private static final String RESULT_FILE_LOCATION = "data/Powerball-1043.csv";
 
     public static void main(String[] args) throws URISyntaxException
     {
@@ -24,7 +24,7 @@ public class Main
 
         PowerBallTrainer trainer = new PowerBallTrainer(powerBallResultCsv);
 
-//        trainer.start();
+        trainer.start();
 
         generateDraws(powerBallResultCsv);
 
@@ -34,13 +34,13 @@ public class Main
     {
         List<PowerBallDraw> results = CsvUtil.loadPowerData(resultFile);
 
-        LogUtil.consoleLog("PowerBall Result Sample Size: " + results.size());
+        LogUtil.log("PowerBall Result Sample Size: " + results.size());
 
         PowerBallAnalyser analyser = new PowerBallAnalyser(results);
 
         Map<Integer, AnalyseResult> analyseResults = analyser.start();
 
-        LogUtil.consoleLog("generate for 1044");
-        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDraw(analyseResults.get(1043), results.size())).forEach(System.out::println);
+        LogUtil.log("generate for 1044");
+        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDraw(analyseResults.get(1043), 1044)).forEach(System.out::println);
     }
 }

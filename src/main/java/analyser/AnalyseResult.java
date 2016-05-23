@@ -80,21 +80,21 @@ public class AnalyseResult
         numfrequencies = numFrequencyMap.entrySet().stream()
                 .map(e -> new Frequency(e.getKey(), e.getValue())).collect(Collectors.toList());
         Collections.sort(numfrequencies);
-//        LogUtil.consoleLog("num frequency:");
+//        LogUtil.log("num frequency:");
 //        numfrequencies.stream().forEach(System.out::println);
         powerBallfrequencies = powerBallFrequencyMap.entrySet().stream()
                 .map(e -> new Frequency(e.getKey(), e.getValue())).collect(Collectors.toList());
         Collections.sort(powerBallfrequencies);
-//        LogUtil.consoleLog("power ball frequency:");
+//        LogUtil.log("power ball frequency:");
 //        powerBallfrequencies.stream().forEach(System.out::println);
 
         potentialNumsGroup = groupResultByFrequency();
-//        LogUtil.consoleLog("power ball last result id:");
+//        LogUtil.log("power ball last result id:");
 //        powerBallLastResultIdMap.entrySet().stream().forEach(System.out::println);
         IntStream.range(1, PowerBallDraw.MAX_POWER_BALL_NUM+1).forEach(i ->{
             if (!powerBallMinDistanceMap.containsKey(i)) powerBallMinDistanceMap.put(i, 0);
         });
-//        LogUtil.consoleLog("power ball min distance:");
+//        LogUtil.log("power ball min distance:");
 //        powerBallMinDistanceMap.entrySet().stream().forEach(System.out::println);
     }
 
