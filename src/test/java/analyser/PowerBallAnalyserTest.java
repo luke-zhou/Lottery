@@ -3,13 +3,12 @@ package analyser;
 import domain.draw.PowerBallDraw;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -127,16 +126,16 @@ public class PowerBallAnalyserTest
         assertTrue(result.get(884).getPowerBallFrequency(5) == 2);
         assertTrue(result.get(884).getPowerBallFrequency(20) == 1);
 
-        assertTrue(result.get(877).getPowerBallLastResultId(5)==877);
-        assertTrue(result.get(878).getPowerBallLastResultId(5)==877);
-        assertTrue(result.get(878).getPowerBallLastResultId(18)==878);
-        assertTrue(result.get(879).getPowerBallLastResultId(5)==877);
-        assertTrue(result.get(879).getPowerBallLastResultId(18)==879);
-        assertTrue(result.get(880).getPowerBallLastResultId(19)==880);
-        assertTrue(result.get(880).getPowerBallLastResultId(18)==879);
-        assertTrue(result.get(881).getPowerBallLastResultId(19)==880);
-        assertTrue(result.get(881).getPowerBallLastResultId(5)==881);
-        assertTrue(result.get(882).getPowerBallLastResultId(19)==880);
-        assertTrue(result.get(882).getPowerBallLastResultId(5)==881);
+        assertTrue(result.get(877).getPowerBallLastResultId(5) == 877);
+        assertTrue(result.get(878).getPowerBallLastResultId(5) == 877);
+        assertTrue(result.get(878).getPowerBallLastResultId(18) == 878);
+        assertTrue(result.get(879).getPowerBallLastResultId(5) == 877);
+        assertTrue(result.get(879).getPowerBallLastResultId(18) == 879);
+        assertTrue(result.get(880).getPowerBallLastResultId(19) == 880);
+        assertTrue(result.get(880).getPowerBallLastResultId(18) == 879);
+        assertTrue(result.get(881).getPowerBallLastResultId(19) == 880);
+        assertTrue(result.get(881).getPowerBallLastResultId(5) == 881);
+        assertTrue(result.get(882).getPowerBallLastResultId(19) == 880);
+        assertTrue(result.get(882).getPowerBallLastResultId(5) == 881);
     }
 }
