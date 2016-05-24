@@ -76,23 +76,6 @@ public class PowerBallTrainer
         trainPowerHit(results, "PowerHit Benchmark", Rule.NO_RULE);
     }
 
-    public TargetedPowerBallTrainerChain train(String message)
-    {
-        return new TargetedPowerBallTrainerChain(message);
-    }
-
-    private List<TrainingResult> generateTrainingResults(Consumer<TrainingResult> action)
-    {
-        List<TrainingResult> trainingResults = IntStream.range(0, GENERATED_TRAINING_RESULT_SIZE).mapToObj(_i -> {
-            TrainingResult trainingResult = new TrainingResult();
-            IntStream.range(0, TRAINING_REPEAT_SIZE).forEach(_j -> action.accept(trainingResult));
-            LogUtil.logProcessing();
-            return trainingResult;
-        }).collect(Collectors.toList());
-        LogUtil.log("");
-        return trainingResults;
-    }
-
     private void trainFrequencyPowerHit(List<PowerBallDraw> results, AnalyseResult analyseResult, String message)
     {
         List<TrainingResult> trainingResults = new ArrayList<>();
@@ -135,31 +118,6 @@ public class PowerBallTrainer
         LogUtil.log(message + ":" + finalResult.toString());
     }
 
-    private TrainingResult getAverageTrainingResult(List<TrainingResult> trainingResults)
-    {
-        getRideAbnormalResults(trainingResults);
-        Long totalWin = (long) trainingResults.stream().mapToLong(TrainingResult::getTotalWin).average().getAsDouble();
-        Long totalDivision = (long) trainingResults.stream().mapToLong(TrainingResult::getTotalDivision).average().getAsDouble();
-        Long totalTrainingSize = (long) trainingResults.stream().mapToLong(TrainingResult::getTotalTrainingSize).average().getAsDouble();
-
-        TrainingResult averageTrainingResult = new TrainingResult();
-        averageTrainingResult.setTotalWin(totalWin);
-        averageTrainingResult.setTotalDivision(totalDivision);
-        averageTrainingResult.setTotalTrainingSize(totalTrainingSize);
-
-        return averageTrainingResult;
-    }
-
-    private void getRideAbnormalResults(List<TrainingResult> trainingResults)
-    {
-        Collections.sort(trainingResults, (r1, r2) -> r1.getTotalDivision().compareTo(r2.getTotalDivision()));
-        //temporary just remove first and last three elements
-        IntStream.range(0, 3).forEach(_i -> {
-            trainingResults.remove(0);
-            trainingResults.remove(trainingResults.size() - 1);
-        });
-    }
-
     private void trainingOneSetResult(List<PowerBallDraw> results, TrainingResult trainingResult, Rule rule)
     {
         results.stream().forEach(r ->
@@ -171,7 +129,61 @@ public class PowerBallTrainer
         );
     }
 
-    private Consumer<TrainingResult> trainingResultConsumer(List<PowerBallDraw> results, Function<TrainingResult, Consumer<PowerBallDraw>> function)
+    private void trainingOneSetResultForPowerHit(List<PowerBallDraw> results, TrainingResult trainingResult, Rule rule)
+    {
+        results.stream().forEach(r -> {
+            int division = r.checkWinPowerHit(PowerBallDraw.generateDraw(rule));
+            trainingResult.addResult(division);
+        });
+    }
+
+    private void trainingOneSetResultForFrequencyPowerHit(List<PowerBallDraw> results, AnalyseResult analyseResult, TrainingResult trainingResult)
+    {
+        results.stream().forEach(r -> {
+            int division = r.checkWinPowerHit(PowerBallDraw.generateDrawFrequencyNPBMinDistance(analyseResult, r.getId() + 1));
+            trainingResult.addResult(division);
+        });
+    }
+
+    public Consumer<TrainingResult> trainingBenchMark()
+    {
+        return trainingResultConsumer(
+                trainingResult -> powerBallDrawConsumer(trainingResult,
+                        draw -> PowerBallDraw.generateRandomDraw()
+                ));
+    }
+
+    public Consumer<TrainingResult> trainingFrequencyNPowerBallMinDistancePattern()
+    {
+        return trainingResultConsumer(
+                trainingResult -> powerBallDrawConsumer(trainingResult,
+                        draw -> PowerBallDraw.generateDrawFrequencyNPBMinDistance(analyseResultMap.get(draw.getId() - 1), draw.getId())
+                ));
+    }
+
+    public Consumer<TrainingResult> trainingPowerBallMinDistancePattern()
+    {
+        return trainingResultConsumer(
+                trainingResult -> powerBallDrawConsumer(trainingResult,
+                        draw -> PowerBallDraw.generateDrawPBMinDistance(analyseResultMap.get(draw.getId() - 1), draw.getId())
+                ));
+    }
+
+    public Consumer<TrainingResult> trainingFrequency()
+    {
+        return trainingResultConsumer(
+                trainingResult -> powerBallDrawConsumer(trainingResult,
+                        draw -> PowerBallDraw.generateDrawFrequency(analyseResultMap.get(draw.getId() - 1))
+                ));
+    }
+
+
+    public TargetedPowerBallTrainerChain train(String message)
+    {
+        return new TargetedPowerBallTrainerChain(message);
+    }
+
+    private Consumer<TrainingResult> trainingResultConsumer(Function<TrainingResult, Consumer<PowerBallDraw>> function)
     {
         return (trainingResult) ->
                 results.stream().skip(results.size() - TESTING_RESULTS_SIZE).forEach(function.apply(trainingResult));
@@ -189,44 +201,41 @@ public class PowerBallTrainer
         };
     }
 
-    public Consumer<TrainingResult> trainingBenchMark()
+    private TrainingResult getAverageTrainingResult(List<TrainingResult> trainingResults)
     {
-        return trainingResultConsumer(results,
-                trainingResult -> powerBallDrawConsumer(trainingResult,
-                        draw -> PowerBallDraw.generateRandomDraw()
-                ));
+        getRidAbnormalResults(trainingResults);
+        Long totalWin = (long) trainingResults.stream().mapToLong(TrainingResult::getTotalWin).average().getAsDouble();
+        Long totalDivision = (long) trainingResults.stream().mapToLong(TrainingResult::getTotalDivision).average().getAsDouble();
+        Long totalTrainingSize = (long) trainingResults.stream().mapToLong(TrainingResult::getTotalTrainingSize).average().getAsDouble();
+
+        TrainingResult averageTrainingResult = new TrainingResult();
+        averageTrainingResult.setTotalWin(totalWin);
+        averageTrainingResult.setTotalDivision(totalDivision);
+        averageTrainingResult.setTotalTrainingSize(totalTrainingSize);
+
+        return averageTrainingResult;
     }
 
-    public Consumer<TrainingResult> trainingFrequencyNPowerBallMinDistancePattern()
+    private void getRidAbnormalResults(List<TrainingResult> trainingResults)
     {
-        return trainingResultConsumer(results,
-                trainingResult -> powerBallDrawConsumer(trainingResult,
-                        draw -> PowerBallDraw.generateDraw(analyseResultMap.get(draw.getId() - 1), draw.getId())
-                ));
-    }
-
-    public Consumer<TrainingResult> trainingFrequency()
-    {
-        return trainingResultConsumer(results,
-                trainingResult -> powerBallDrawConsumer(trainingResult,
-                        draw -> PowerBallDraw.generateDraw(null, draw.getId())
-                ));
-    }
-
-    private void trainingOneSetResultForPowerHit(List<PowerBallDraw> results, TrainingResult trainingResult, Rule rule)
-    {
-        results.stream().forEach(r -> {
-            int division = r.checkWinPowerHit(PowerBallDraw.generateDraw(rule));
-            trainingResult.addResult(division);
+        Collections.sort(trainingResults, (r1, r2) -> r1.getTotalDivision().compareTo(r2.getTotalDivision()));
+        //temporary just remove first and last three elements
+        IntStream.range(0, 3).forEach(_i -> {
+            trainingResults.remove(0);
+            trainingResults.remove(trainingResults.size() - 1);
         });
     }
 
-    private void trainingOneSetResultForFrequencyPowerHit(List<PowerBallDraw> results, AnalyseResult analyseResult, TrainingResult trainingResult)
+    private List<TrainingResult> generateTrainingResults(Consumer<TrainingResult> action)
     {
-        results.stream().forEach(r -> {
-            int division = r.checkWinPowerHit(PowerBallDraw.generateDraw(analyseResult, r.getId() + 1));
-            trainingResult.addResult(division);
-        });
+        List<TrainingResult> trainingResults = IntStream.range(0, GENERATED_TRAINING_RESULT_SIZE).mapToObj(_i -> {
+            TrainingResult trainingResult = new TrainingResult();
+            IntStream.range(0, TRAINING_REPEAT_SIZE).forEach(_j -> action.accept(trainingResult));
+            LogUtil.logProcessing();
+            return trainingResult;
+        }).collect(Collectors.toList());
+        LogUtil.log("");
+        return trainingResults;
     }
 
     public class TargetedPowerBallTrainerChain

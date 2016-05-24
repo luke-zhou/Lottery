@@ -26,9 +26,10 @@ public class Main
 
         trainer.train("PowerBall Benchmark").by(trainer.trainingBenchMark());
         trainer.train("PowerBall frequency Result").by(trainer.trainingFrequency());
+        trainer.train("PowerBall PB Mini Distance Pattern Result").by(trainer.trainingPowerBallMinDistancePattern());
         trainer.train("PowerBall frequency N PB Mini Distance Pattern Result").by(trainer.trainingFrequencyNPowerBallMinDistancePattern());
 
-//        generateDraws(powerBallResultCsv);
+        generateDraws(powerBallResultCsv);
 
     }
 
@@ -43,6 +44,6 @@ public class Main
         Map<Integer, AnalyseResult> analyseResults = analyser.start();
 
         LogUtil.log("generate for 1044");
-        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDraw(analyseResults.get(1043), 1044)).forEach(System.out::println);
+        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDrawFrequencyNPBMinDistance(analyseResults.get(1043), 1044)).forEach(System.out::println);
     }
 }
