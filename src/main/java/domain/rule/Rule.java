@@ -55,4 +55,9 @@ public class Rule
     {
         this.arguments = arguments;
     }
+
+    public void addArguments(Integer arg)
+    {
+        arguments.add(arg);
+    }
 }

@@ -25,11 +25,14 @@ public class Main
         PowerBallTrainer trainer = new PowerBallTrainer(powerBallResultCsv);
 
         trainer.train("PowerBall Benchmark").by(trainer.trainingBenchMark());
+        trainer.train("PowerHit Benchmark").by(trainer.trainingHitBenchMark());
         trainer.train("PowerBall frequency Result").by(trainer.trainingFrequency());
+        trainer.train("PowerHit frequency Result").by(trainer.trainingHitFrequency());
         trainer.train("PowerBall PB Mini Distance Pattern Result").by(trainer.trainingPowerBallMinDistancePattern());
         trainer.train("PowerBall frequency N PB Mini Distance Pattern Result").by(trainer.trainingFrequencyNPowerBallMinDistancePattern());
+        trainer.train("PowerBall frequency with rule a=b+1").by(trainer.trainingFrequencyWithRule());
 
-        generateDraws(powerBallResultCsv);
+//        generateDraws(powerBallResultCsv);
 
     }
 

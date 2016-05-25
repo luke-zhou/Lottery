@@ -25,7 +25,7 @@ public class PowerBallTrainer
 {
     private int TRAINING_REPEAT_SIZE = 314;
     private int GENERATED_TRAINING_RESULT_SIZE = 20;
-    private int TESTING_RESULTS_SIZE = 20;
+    private int TESTING_RESULTS_SIZE = 30;
 
     private File resultFile;
     private List<PowerBallDraw> results;
@@ -43,12 +43,6 @@ public class PowerBallTrainer
 
     public void start()
     {
-
-//        trainFrequencyPowerHit(results, potentialNumsGroup, "PowerHit frequency Result");
-
-
-//        calculatePowerHitBenchMark(results);
-
 //        calculatePowerHitOneNumberExisting(results);
 //        calculatePowerHitTwoNumberRelation(results);
     }
@@ -69,32 +63,6 @@ public class PowerBallTrainer
             rule.setInvolvedNumberCount(2);
             trainPowerHit(results, "PowerHit a=b+" + i, rule);
         });
-    }
-
-    private void calculatePowerHitBenchMark(List<PowerBallDraw> results)
-    {
-        trainPowerHit(results, "PowerHit Benchmark", Rule.NO_RULE);
-    }
-
-    private void trainFrequencyPowerHit(List<PowerBallDraw> results, AnalyseResult analyseResult, String message)
-    {
-        List<TrainingResult> trainingResults = new ArrayList<>();
-        for (int k = 0; k < GENERATED_TRAINING_RESULT_SIZE; k++)
-        {
-            TrainingResult trainingResult = new TrainingResult();
-
-            for (int i = 0; i < TRAINING_REPEAT_SIZE; i++)
-            {
-                trainingOneSetResultForFrequencyPowerHit(results, analyseResult, trainingResult);
-            }
-            trainingResults.add(trainingResult);
-            System.out.print(".");
-        }
-        LogUtil.log("");
-
-        TrainingResult finalResult = getAverageTrainingResult(trainingResults);
-
-        LogUtil.log(message + ":" + finalResult.toString());
     }
 
     private void trainPowerHit(List<PowerBallDraw> results, String message, Rule rule)
@@ -153,6 +121,14 @@ public class PowerBallTrainer
                 ));
     }
 
+    public Consumer<TrainingResult> trainingHitBenchMark()
+    {
+        return trainingResultConsumer(
+                trainingResult -> powerHitDrawConsumer(trainingResult,
+                        draw -> PowerBallDraw.generateRandomDraw()
+                ));
+    }
+
     public Consumer<TrainingResult> trainingFrequencyNPowerBallMinDistancePattern()
     {
         return trainingResultConsumer(
@@ -173,6 +149,24 @@ public class PowerBallTrainer
     {
         return trainingResultConsumer(
                 trainingResult -> powerBallDrawConsumer(trainingResult,
+                        draw -> PowerBallDraw.generateDrawFrequency(analyseResultMap.get(draw.getId() - 1))
+                ));
+    }
+
+    public Consumer<TrainingResult> trainingFrequencyWithRule()
+    {
+        Rule rule = new Rule(2);
+        rule.addArguments(1);
+        return trainingResultConsumer(
+                trainingResult -> powerBallDrawConsumer(trainingResult,
+                        draw -> PowerBallDraw.generateDrawFrequency(analyseResultMap.get(draw.getId() - 1), rule)
+                ));
+    }
+
+    public Consumer<TrainingResult> trainingHitFrequency()
+    {
+        return trainingResultConsumer(
+                trainingResult -> powerHitDrawConsumer(trainingResult,
                         draw -> PowerBallDraw.generateDrawFrequency(analyseResultMap.get(draw.getId() - 1))
                 ));
     }
@@ -198,6 +192,14 @@ public class PowerBallTrainer
                 trainingResult.addResult(division);
             });
             trainingResult.setTotalTrainingSize(trainingResult.getTotalTrainingSize() - 19);
+        };
+    }
+
+    private Consumer<PowerBallDraw> powerHitDrawConsumer(TrainingResult trainingResult, Function<PowerBallDraw, PowerBallDraw> generationFunction)
+    {
+        return r -> {
+                int division = r.checkWinPowerHit(generationFunction.apply(r));
+                trainingResult.addResult(division);
         };
     }
 

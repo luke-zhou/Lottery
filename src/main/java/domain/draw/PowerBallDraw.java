@@ -30,7 +30,8 @@ public class PowerBallDraw extends Draw
 
     public int checkWinPowerHit(PowerBallDraw draw)
     {
-        return calculateDivision(sortedNums, draw.getSortedNums(), true);
+        int division = IntStream.range(0,19).map(_i->calculateDivision(sortedNums, draw.getSortedNums(), false)).sum();
+        return calculateDivision(sortedNums, draw.getSortedNums(), true)+ division;
     }
 
     private int calculateDivision(Integer[] thisDraw, Integer[] testedDraw, boolean powerBallCheck)
@@ -225,7 +226,7 @@ public class PowerBallDraw extends Draw
         return draw;
     }
 
-    public static PowerBallDraw generateDrawFrequency(AnalyseResult analyseResult)
+    public static PowerBallDraw generateDrawFrequency(AnalyseResult analyseResult, Rule rule)
     {
         Integer[] selection;
         PowerBallDraw draw;
@@ -234,9 +235,14 @@ public class PowerBallDraw extends Draw
             selection = randomGenerateSelection(analyseResult.getPotentialNumsGroup());
             int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
             draw = new PowerBallDraw(selection, powerBallSelection);
-        } while (!draw.follow(Rule.NO_RULE));
+        } while (!draw.follow(rule));
 
         return draw;
+    }
+
+    public static PowerBallDraw generateDrawFrequency(AnalyseResult analyseResult)
+    {
+        return generateDrawFrequency(analyseResult, Rule.NO_RULE);
     }
 
     public static PowerBallDraw generateDrawPBMinDistance(AnalyseResult analyseResult, Integer id)
