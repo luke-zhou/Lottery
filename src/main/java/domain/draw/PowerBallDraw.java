@@ -3,6 +3,7 @@ package domain.draw;
 import analyser.AnalyseResult;
 import domain.rule.Rule;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -163,6 +164,23 @@ public class PowerBallDraw extends Draw
                 '}';
     }
 
+    public String toWinResultString(PowerBallDraw actualResult)
+    {
+        StringBuilder winResult = new StringBuilder();
+        Arrays.stream(sortedNums).forEach(i->{
+            winResult.append(i);
+            if (Arrays.stream(actualResult.getNums()).anyMatch(j-> j==i))
+            {
+                winResult.append("*");
+            }
+            winResult.append(", ");
+        });
+        return "PowerBallDraw{" +
+                "nums=" + winResult.toString() +
+                "powerBall=" + powerBall + (powerBall==actualResult.getPowerBall()?"*":"")+
+                '}';
+    }
+
     //index is 1 based
     @Override
     public Integer getNum(int index) throws Exception
@@ -226,23 +244,23 @@ public class PowerBallDraw extends Draw
         return draw;
     }
 
-    public static PowerBallDraw generateDrawFrequency(AnalyseResult analyseResult, Rule rule)
+    public static PowerBallDraw generateDrawFrequency(AnalyseResult analyseResult, List<Rule> rules)
     {
         Integer[] selection;
-        PowerBallDraw draw;
+        PowerBallDraw[] draw = new PowerBallDraw[1];
         do
         {
             selection = randomGenerateSelection(analyseResult.getPotentialNumsGroup());
             int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
-            draw = new PowerBallDraw(selection, powerBallSelection);
-        } while (!draw.follow(rule));
+            draw[0] = new PowerBallDraw(selection, powerBallSelection);
+        } while (rules.stream().anyMatch(rule -> !draw[0].follow(rule)));
 
-        return draw;
+        return draw[0];
     }
 
     public static PowerBallDraw generateDrawFrequency(AnalyseResult analyseResult)
     {
-        return generateDrawFrequency(analyseResult, Rule.NO_RULE);
+        return generateDrawFrequency(analyseResult, new ArrayList<>());
     }
 
     public static PowerBallDraw generateDrawPBMinDistance(AnalyseResult analyseResult, Integer id)

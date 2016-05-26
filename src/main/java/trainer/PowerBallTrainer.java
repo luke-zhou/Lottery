@@ -25,11 +25,12 @@ public class PowerBallTrainer
 {
     private int TRAINING_REPEAT_SIZE = 314;
     private int GENERATED_TRAINING_RESULT_SIZE = 20;
-    private int TESTING_RESULTS_SIZE = 30;
+    private int TESTING_RESULTS_SIZE = 50;
 
     private File resultFile;
     private List<PowerBallDraw> results;
     private Map<Integer, AnalyseResult> analyseResultMap;
+    private Boolean printOutResultOn = false;
 
     public PowerBallTrainer(File resultFile)
     {
@@ -153,13 +154,20 @@ public class PowerBallTrainer
                 ));
     }
 
-    public Consumer<TrainingResult> trainingFrequencyWithRule()
+    public Consumer<TrainingResult> trainingFrequencyWithRule(List<Rule> rules)
     {
-        Rule rule = new Rule(2);
-        rule.addArguments(1);
+
         return trainingResultConsumer(
                 trainingResult -> powerBallDrawConsumer(trainingResult,
-                        draw -> PowerBallDraw.generateDrawFrequency(analyseResultMap.get(draw.getId() - 1), rule)
+                        draw -> PowerBallDraw.generateDrawFrequency(analyseResultMap.get(draw.getId() - 1), rules)
+                ));
+    }
+
+    public Consumer<TrainingResult> trainingHitFrequencyWithRule(List<Rule> rules)
+    {
+        return trainingResultConsumer(
+                trainingResult -> powerHitDrawConsumer(trainingResult,
+                        draw -> PowerBallDraw.generateDrawFrequency(analyseResultMap.get(draw.getId() - 1), rules)
                 ));
     }
 
@@ -188,8 +196,13 @@ public class PowerBallTrainer
         return r -> {
             //this is to make even with the power hit
             IntStream.range(0, 20).forEach(_i -> {
-                int division = r.checkWin(generationFunction.apply(r));
+                PowerBallDraw generatedDraw = generationFunction.apply(r);
+                int division = r.checkWin(generatedDraw);
                 trainingResult.addResult(division);
+                if (division > 0 && printOutResultOn)
+                {
+                    LogUtil.log(generatedDraw.toWinResultString(r));
+                }
             });
             trainingResult.setTotalTrainingSize(trainingResult.getTotalTrainingSize() - 19);
         };
@@ -198,8 +211,13 @@ public class PowerBallTrainer
     private Consumer<PowerBallDraw> powerHitDrawConsumer(TrainingResult trainingResult, Function<PowerBallDraw, PowerBallDraw> generationFunction)
     {
         return r -> {
-                int division = r.checkWinPowerHit(generationFunction.apply(r));
-                trainingResult.addResult(division);
+            PowerBallDraw generatedDraw = generationFunction.apply(r);
+            int division = r.checkWinPowerHit(generatedDraw);
+            trainingResult.addResult(division);
+            if (division > 0 && printOutResultOn)
+            {
+                LogUtil.log(generatedDraw.toWinResultString(r));
+            }
         };
     }
 
@@ -238,6 +256,11 @@ public class PowerBallTrainer
         }).collect(Collectors.toList());
         LogUtil.log("");
         return trainingResults;
+    }
+
+    public void turnOnResultPrint()
+    {
+        this.printOutResultOn =true;
     }
 
     public class TargetedPowerBallTrainerChain
