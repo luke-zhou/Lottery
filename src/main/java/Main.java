@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
  */
 public class Main
 {
-    private static final String RESULT_FILE_LOCATION = "data/Powerball-1044.csv";
+    private static final String RESULT_FILE_LOCATION = "data/Powerball-1045.csv";
 
     public static void main(String[] args) throws URISyntaxException
     {
@@ -45,22 +45,30 @@ public class Main
         List<Rule> rules = new ArrayList<>();
         Rule rule = new Rule(2);
         rule.addArguments(1);
-            rules.add(rule);
-        trainer.train("PowerBall frequency with rule a=b+(1)").by(trainer.trainingFrequencyWithRule(rules));
         rules.clear();
+        rules.add(rule);
+        trainer.train("PowerBall frequency with rule a=b+(1)").by(trainer.trainingFrequencyWithRule(rules));
 
         rule = new Rule(2);
         rule.addArguments(13);
+        rules.clear();
         rules.add(rule);
             trainer.train("PowerBall frequency with rule a=b+(13)").by(trainer.trainingFrequencyWithRule(rules));
 
-        rule = new Rule(2);
-        rule.addArguments(1);
-        rules.add(rule);
-        rule = new Rule(2);
-        rule.addArguments(13);
-        rules.add(rule);
-        trainer.train("PowerBall frequency with rule a=b+(1, 13)").by(trainer.trainingFrequencyWithRule(rules));
+
+        IntStream.range(1,2).forEach(i->{
+            IntStream.range(10,20).forEach(j->{
+                rules.clear();
+                Rule rule1 = new Rule(2);
+                rule1.addArguments(i);
+                rules.add(rule1);
+                Rule rule2 = new Rule(2);
+                rule2.addArguments(j);
+                rules.add(rule1);
+                trainer.train("PowerBall frequency with rule a=b+("+i+", "+j+")").by(trainer.trainingFrequencyWithRule(rules));
+            });
+        });
+
 
 //        IntStream.range(1, 36).forEach(i -> {
 //            Rule rule = new Rule(2);
@@ -88,14 +96,14 @@ public class Main
 
         Map<Integer, AnalyseResult> analyseResults = analyser.start();
 
+        List<Rule> rules = new ArrayList<>();
         Rule rule = new Rule(2);
         rule.addArguments(1);
-        List<Rule> rules = new ArrayList<>();
         rules.add(rule);
         rule = new Rule(2);
-        rule.addArguments(13);
+        rule.addArguments(15);
         rules.add(rule);
-        LogUtil.log("generate for 1045");
-        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDrawFrequency(analyseResults.get(1044), rules)).forEach(System.out::println);
+        LogUtil.log("generate for 1046");
+        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDrawFrequency(analyseResults.get(1045), rules)).forEach(System.out::println);
     }
 }
