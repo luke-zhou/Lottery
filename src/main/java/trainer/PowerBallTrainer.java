@@ -154,7 +154,23 @@ public class PowerBallTrainer
                 ));
     }
 
-    public Consumer<TrainingResult> trainingFrequencyWithRule(List<Rule> rules)
+    public Consumer<TrainingResult> trainingFrequencyNPB()
+    {
+        return trainingResultConsumer(
+                trainingResult -> powerBallDrawConsumer(trainingResult,
+                        draw -> PowerBallDraw.generateDrawFrequencyNPB(analyseResultMap.get(draw.getId() - 1))
+                ));
+    }
+
+    public Consumer<TrainingResult> trainingFrequencyNPB(List<Rule> rules)
+    {
+        return trainingResultConsumer(
+                trainingResult -> powerBallDrawConsumer(trainingResult,
+                        draw -> PowerBallDraw.generateDrawFrequencyNPB(analyseResultMap.get(draw.getId() - 1), rules)
+                ));
+    }
+
+    public Consumer<TrainingResult> trainingFrequency(List<Rule> rules)
     {
 
         return trainingResultConsumer(

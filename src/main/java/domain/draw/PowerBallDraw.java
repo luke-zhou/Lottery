@@ -1,6 +1,7 @@
 package domain.draw;
 
 import analyser.AnalyseResult;
+import analyser.Frequency;
 import domain.rule.Rule;
 
 import java.lang.reflect.Array;
@@ -258,6 +259,25 @@ public class PowerBallDraw extends Draw
         return draw[0];
     }
 
+    public static PowerBallDraw generateDrawFrequencyNPB(AnalyseResult analyseResult, List<Rule> rules)
+    {
+        Integer[] selection;
+        PowerBallDraw[] draw = new PowerBallDraw[1];
+        do
+        {
+            selection = randomGenerateSelection(analyseResult.getPotentialNumsGroup());
+            int powerBallSelection = randomGeneratePowerBall(analyseResult);
+            draw[0] = new PowerBallDraw(selection, powerBallSelection);
+        } while (rules.stream().anyMatch(rule -> !draw[0].follow(rule)));
+
+        return draw[0];
+    }
+
+    public static PowerBallDraw generateDrawFrequencyNPB(AnalyseResult analyseResult)
+    {
+        return generateDrawFrequencyNPB(analyseResult, new ArrayList<>());
+    }
+
     public static PowerBallDraw generateDrawFrequency(AnalyseResult analyseResult)
     {
         return generateDrawFrequency(analyseResult, new ArrayList<>());
@@ -320,6 +340,18 @@ public class PowerBallDraw extends Draw
         }
 
         return selectionSet.toArray(new Integer[NUM_OF_BALL]);
+    }
+
+    private static Integer randomGeneratePowerBall(AnalyseResult analyseResult)
+    {
+        int randomResult = random.nextInt(analyseResult.getSampleSize());
+        for (Frequency frequency : analyseResult.getPowerBallfrequencies())
+        {
+            if (randomResult<frequency.getCount()) return frequency.getNum();
+            randomResult -= frequency.getCount();
+        }
+        //would never happen
+        return 0;
     }
 
     private static Integer randomGeneratePowerBall(AnalyseResult analyseResult, Integer id)

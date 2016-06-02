@@ -24,9 +24,9 @@ public class Main
     {
         File powerBallResultCsv = new File(Main.class.getResource(RESULT_FILE_LOCATION).toURI());
 
-//         doTraining(powerBallResultCsv);
+         doTraining(powerBallResultCsv);
 
-        generateDraws(powerBallResultCsv);
+//        generateDraws(powerBallResultCsv);
 
     }
 
@@ -38,36 +38,68 @@ public class Main
         trainer.train("PowerBall Benchmark").by(trainer.trainingBenchMark());
         trainer.train("PowerHit Benchmark").by(trainer.trainingHitBenchMark());
         trainer.train("PowerBall frequency Result").by(trainer.trainingFrequency());
+        trainer.train("PowerBall frequency and pb Result").by(trainer.trainingFrequencyNPB());
         trainer.train("PowerHit frequency Result").by(trainer.trainingHitFrequency());
 //        trainer.train("PowerBall PB Mini Distance Pattern Result").by(trainer.trainingPowerBallMinDistancePattern());
 //        trainer.train("PowerBall frequency N PB Mini Distance Pattern Result").by(trainer.trainingFrequencyNPowerBallMinDistancePattern());
 
         List<Rule> rules = new ArrayList<>();
+
         Rule rule = new Rule(2);
         rule.addArguments(1);
         rules.clear();
         rules.add(rule);
-        trainer.train("PowerBall frequency with rule a=b+(1)").by(trainer.trainingFrequencyWithRule(rules));
+        trainer.train("PowerBall frequency with rule a=b+(1)").by(trainer.trainingFrequency(rules));
+
+        rule = new Rule(2);
+        rule.addArguments(1);
+        rules.clear();
+        rules.add(rule);
+        trainer.train("PowerBall frequency and pb with rule a=b+(1)").by(trainer.trainingFrequencyNPB(rules));
 
         rule = new Rule(2);
         rule.addArguments(13);
         rules.clear();
         rules.add(rule);
-            trainer.train("PowerBall frequency with rule a=b+(13)").by(trainer.trainingFrequencyWithRule(rules));
+            trainer.train("PowerBall frequency with rule a=b+(13)").by(trainer.trainingFrequency(rules));
+
+        rule = new Rule(2);
+        rule.addArguments(13);
+        rules.clear();
+        rules.add(rule);
+        trainer.train("PowerBall frequency and pb with rule a=b+(13)").by(trainer.trainingFrequencyNPB(rules));
+
+        rules.clear();
+        Rule rule1 = new Rule(2);
+        rule1.addArguments(1);
+        rules.add(rule1);
+        Rule rule2 = new Rule(2);
+        rule2.addArguments(13);
+        rules.add(rule1);
+        trainer.train("PowerBall frequency with rule a=b+(" + 1 + ", " + 13 + ")").by(trainer.trainingFrequency(rules));
+
+        rules.clear();
+        rule1 = new Rule(2);
+        rule1.addArguments(1);
+        rules.add(rule1);
+        rule2 = new Rule(2);
+        rule2.addArguments(13);
+        rules.add(rule1);
+        trainer.train("PowerBall frequency and pb with rule a=b+(" + 1 + ", " + 13 + ")").by(trainer.trainingFrequencyNPB(rules));
 
 
-        IntStream.range(1,2).forEach(i->{
-            IntStream.range(10,20).forEach(j->{
-                rules.clear();
-                Rule rule1 = new Rule(2);
-                rule1.addArguments(i);
-                rules.add(rule1);
-                Rule rule2 = new Rule(2);
-                rule2.addArguments(j);
-                rules.add(rule1);
-                trainer.train("PowerBall frequency with rule a=b+("+i+", "+j+")").by(trainer.trainingFrequencyWithRule(rules));
-            });
-        });
+//        IntStream.range(1,2).forEach(i->{
+//            IntStream.range(10,20).forEach(j->{
+//                rules.clear();
+//                Rule rule1 = new Rule(2);
+//                rule1.addArguments(i);
+//                rules.add(rule1);
+//                Rule rule2 = new Rule(2);
+//                rule2.addArguments(j);
+//                rules.add(rule1);
+//                trainer.train("PowerBall frequency with rule a=b+("+i+", "+j+")").by(trainer.trainingFrequency(rules));
+//            });
+//        });
 
 
 //        IntStream.range(1, 36).forEach(i -> {
@@ -75,7 +107,7 @@ public class Main
 //            rule.addArguments(i);
 //            List<Rule> rules = new ArrayList<>();
 //            rules.add(rule);
-//            trainer.train("PowerBall frequency with rule a=b+" + i).by(trainer.trainingFrequencyWithRule(rules));
+//            trainer.train("PowerBall frequency with rule a=b+" + i).by(trainer.trainingFrequency(rules));
 //        });
 //        IntStream.range(1, 40).forEach(i -> {
 //            Rule rule = new Rule(2);
