@@ -1,5 +1,6 @@
 package analyser;
 
+import domain.analyserresult.PowerBallAnalyseResult;
 import domain.draw.PowerBallDraw;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,7 +67,7 @@ public class PowerBallAnalyserTest
     @Test
     public void start() throws Exception
     {
-        Map<Integer, AnalyseResult> result = powerBallAnalyser.start();
+        Map<Integer, PowerBallAnalyseResult> result = powerBallAnalyser.start();
 
         result.entrySet().forEach(System.out::println);
 

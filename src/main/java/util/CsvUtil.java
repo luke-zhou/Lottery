@@ -1,6 +1,8 @@
 package util;
 
 import com.opencsv.CSVReader;
+import domain.draw.Draw;
+import domain.draw.OZLottoDraw;
 import domain.draw.PowerBallDraw;
 
 import java.io.File;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -25,9 +28,9 @@ import java.util.stream.IntStream;
  */
 public class CsvUtil
 {
-    public static List<PowerBallDraw> loadPowerData(File file)
+    public static <T extends Draw> List<T> loadData(File file, Function<String[], T> function)
     {
-        List<PowerBallDraw> draws = new ArrayList<>();
+        List<T> draws = new ArrayList<>();
         try
         {
             CSVReader reader = new CSVReader(new FileReader(file));
@@ -39,10 +42,7 @@ public class CsvUtil
                 String[] lineContent = nextLine;
                 int id = Integer.valueOf(lineContent[0]);
                 Date date = sdf.parse(lineContent[1]);
-                Integer[] nums =IntStream.range(2,8).mapToObj(i->Integer.valueOf(lineContent[i])).toArray(size -> new Integer[size]);
-
-                int powerBall = Integer.valueOf(lineContent[8]);
-                PowerBallDraw draw = new PowerBallDraw(nums, powerBall);
+                T draw = function.apply(lineContent);
                 draw.setId(id);
                 draw.setDate(date);
                 draws.add(draw);
@@ -60,7 +60,7 @@ public class CsvUtil
         {
             e.printStackTrace();
         }
-
         return draws;
     }
+
 }

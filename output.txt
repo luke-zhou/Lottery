@@ -1,22 +1,14 @@
 PowerBall Result Sample Size: 169
-generate for 1046
-PowerBallDraw{nums=[8, 18, 19, 20, 34, 40], powerBall=20}
-PowerBallDraw{nums=[5, 13, 20, 26, 35, 36], powerBall=14}
-PowerBallDraw{nums=[3, 5, 16, 19, 20, 32], powerBall=19}
-PowerBallDraw{nums=[13, 17, 20, 31, 32, 34], powerBall=17}
-PowerBallDraw{nums=[8, 11, 23, 24, 26, 34], powerBall=9}
-PowerBallDraw{nums=[5, 6, 17, 20, 25, 29], powerBall=10}
-PowerBallDraw{nums=[19, 23, 24, 26, 29, 38], powerBall=17}
-PowerBallDraw{nums=[5, 7, 19, 20, 26, 37], powerBall=12}
-PowerBallDraw{nums=[9, 10, 20, 29, 31, 35], powerBall=19}
-PowerBallDraw{nums=[4, 5, 7, 19, 20, 33], powerBall=17}
-PowerBallDraw{nums=[2, 7, 8, 17, 19, 32], powerBall=18}
-PowerBallDraw{nums=[5, 6, 19, 20, 21, 35], powerBall=1}
-PowerBallDraw{nums=[1, 5, 18, 19, 20, 32], powerBall=5}
-PowerBallDraw{nums=[4, 7, 18, 19, 26, 32], powerBall=11}
-PowerBallDraw{nums=[5, 6, 10, 13, 20, 32], powerBall=7}
-PowerBallDraw{nums=[9, 16, 17, 19, 32, 38], powerBall=20}
-PowerBallDraw{nums=[4, 6, 19, 25, 29, 30], powerBall=13}
-PowerBallDraw{nums=[4, 9, 20, 24, 33, 34], powerBall=12}
-PowerBallDraw{nums=[19, 20, 23, 25, 26, 34], powerBall=10}
-PowerBallDraw{nums=[19, 20, 24, 29, 34, 37], powerBall=2}
+....................
+PowerBall Benchmark:TrainingResult{totalWin=4043308, totalDivision=8349884, totalTrainingSize=15707950}
+....................
+PowerHit Benchmark:TrainingResult{totalWin=3373345, totalDivision=8626673, totalTrainingSize=15707950}
+....................
+PowerBall frequency Result:TrainingResult{totalWin=4739035, totalDivision=13091016, totalTrainingSize=15707950}
+....................
+PowerBall frequency and pb Result:TrainingResult{totalWin=4578540, totalDivision=12773929, totalTrainingSize=15707950}
+....................
+PowerHit frequency Result:TrainingResult{totalWin=3741825, totalDivision=12428486, totalTrainingSize=15707950}
+....................
+PowerBall frequency with rule a=b+(1):TrainingResult{totalWin=4955551, totalDivision=16285210, totalTrainingSize=15707950}
+............

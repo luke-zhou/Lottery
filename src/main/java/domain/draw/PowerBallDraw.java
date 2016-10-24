@@ -1,10 +1,10 @@
 package domain.draw;
 
-import analyser.AnalyseResult;
+import domain.analyserresult.PowerBallAnalyseResult;
 import analyser.Frequency;
 import domain.rule.Rule;
+import util.NumberGenUtil;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -16,10 +16,8 @@ public class PowerBallDraw extends Draw
     public static int MAX_NUM = 40;
     public static int MAX_POWER_BALL_NUM = 20;
     public static int NUM_OF_BALL = 6;
-    private static Random random = new Random(System.currentTimeMillis());
+    protected static Random random = new Random(System.currentTimeMillis());
 
-    private Integer[] nums;
-    private Integer[] sortedNums;
     private Integer powerBall;
 
     public PowerBallDraw(Integer[] nums, Integer powerBall)
@@ -182,32 +180,15 @@ public class PowerBallDraw extends Draw
                 '}';
     }
 
-    //index is 1 based
-    @Override
-    public Integer getNum(int index) throws Exception
-    {
-        if (index < 1 || index > NUM_OF_BALL) throw new Exception("not in range");
-        return nums[index - 1];
-    }
-
     public Integer getPowerBall()
     {
         return powerBall;
     }
 
-    public Boolean hasNum(int num)
+    @Override
+    public Integer getNumOfBall()
     {
-        return Arrays.stream(nums).anyMatch(i -> i == num);
-    }
-
-    public Integer[] getNums()
-    {
-        return nums;
-    }
-
-    public Integer[] getSortedNums()
-    {
-        return sortedNums;
+        return NUM_OF_BALL;
     }
 
     public static PowerBallDraw generateDraw(Rule rule)
@@ -216,8 +197,8 @@ public class PowerBallDraw extends Draw
         PowerBallDraw draw;
         do
         {
-            selection = randomGenerateSelection();
-            int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
+            selection = NumberGenUtil.randomGenerateSelection(NUM_OF_BALL, MAX_NUM);
+            int powerBallSelection = NumberGenUtil.randomGenerateNumber(MAX_POWER_BALL_NUM);
             draw = new PowerBallDraw(selection, powerBallSelection);
         } while (!draw.follow(rule));
 
@@ -230,14 +211,14 @@ public class PowerBallDraw extends Draw
         return generateDraw(Rule.NO_RULE);
     }
 
-    public static PowerBallDraw generateDrawFrequencyNPBMinDistance(AnalyseResult analyseResult, Integer id)
+    public static PowerBallDraw generateDrawFrequencyNPBMinDistance(PowerBallAnalyseResult powerBallAnalyseResult, Integer id)
     {
         Integer[] selection;
         PowerBallDraw draw;
         do
         {
-            selection = randomGenerateSelection(analyseResult.getPotentialNumsGroup());
-            int powerBallSelection = randomGeneratePowerBall(analyseResult, id);
+            selection = NumberGenUtil.randomGenerateSelection(NUM_OF_BALL, powerBallAnalyseResult.getPotentialNumsGroup());
+            int powerBallSelection = randomGeneratePowerBall(powerBallAnalyseResult, id);
             draw = new PowerBallDraw(selection, powerBallSelection);
 
         } while (!draw.follow(Rule.NO_RULE));
@@ -245,13 +226,13 @@ public class PowerBallDraw extends Draw
         return draw;
     }
 
-    public static PowerBallDraw generateDrawFrequency(AnalyseResult analyseResult, List<Rule> rules)
+    public static PowerBallDraw generateDrawFrequency(PowerBallAnalyseResult powerBallAnalyseResult, List<Rule> rules)
     {
         Integer[] selection;
         PowerBallDraw[] draw = new PowerBallDraw[1];
         do
         {
-            selection = randomGenerateSelection(analyseResult.getPotentialNumsGroup());
+            selection = NumberGenUtil.randomGenerateSelection(NUM_OF_BALL, powerBallAnalyseResult.getPotentialNumsGroup());
             int powerBallSelection = random.nextInt(MAX_POWER_BALL_NUM) + 1;
             draw[0] = new PowerBallDraw(selection, powerBallSelection);
         } while (rules.stream().anyMatch(rule -> !draw[0].follow(rule)));
@@ -259,38 +240,38 @@ public class PowerBallDraw extends Draw
         return draw[0];
     }
 
-    public static PowerBallDraw generateDrawFrequencyNPB(AnalyseResult analyseResult, List<Rule> rules)
+    public static PowerBallDraw generateDrawFrequencyNPB(PowerBallAnalyseResult powerBallAnalyseResult, List<Rule> rules)
     {
         Integer[] selection;
         PowerBallDraw[] draw = new PowerBallDraw[1];
         do
         {
-            selection = randomGenerateSelection(analyseResult.getPotentialNumsGroup());
-            int powerBallSelection = randomGeneratePowerBall(analyseResult);
+            selection = NumberGenUtil.randomGenerateSelection(NUM_OF_BALL, powerBallAnalyseResult.getPotentialNumsGroup());
+            int powerBallSelection = randomGeneratePowerBall(powerBallAnalyseResult);
             draw[0] = new PowerBallDraw(selection, powerBallSelection);
         } while (rules.stream().anyMatch(rule -> !draw[0].follow(rule)));
 
         return draw[0];
     }
 
-    public static PowerBallDraw generateDrawFrequencyNPB(AnalyseResult analyseResult)
+    public static PowerBallDraw generateDrawFrequencyNPB(PowerBallAnalyseResult powerBallAnalyseResult)
     {
-        return generateDrawFrequencyNPB(analyseResult, new ArrayList<>());
+        return generateDrawFrequencyNPB(powerBallAnalyseResult, new ArrayList<>());
     }
 
-    public static PowerBallDraw generateDrawFrequency(AnalyseResult analyseResult)
+    public static PowerBallDraw generateDrawFrequency(PowerBallAnalyseResult powerBallAnalyseResult)
     {
-        return generateDrawFrequency(analyseResult, new ArrayList<>());
+        return generateDrawFrequency(powerBallAnalyseResult, new ArrayList<>());
     }
 
-    public static PowerBallDraw generateDrawPBMinDistance(AnalyseResult analyseResult, Integer id)
+    public static PowerBallDraw generateDrawPBMinDistance(PowerBallAnalyseResult powerBallAnalyseResult, Integer id)
     {
         Integer[] selection;
         PowerBallDraw draw;
         do
         {
-            selection = randomGenerateSelection();
-            int powerBallSelection = randomGeneratePowerBall(analyseResult, id);
+            selection = NumberGenUtil.randomGenerateSelection(NUM_OF_BALL, MAX_NUM);
+            int powerBallSelection = randomGeneratePowerBall(powerBallAnalyseResult, id);
             draw = new PowerBallDraw(selection, powerBallSelection);
         } while (!draw.follow(Rule.NO_RULE));
 
@@ -315,37 +296,10 @@ public class PowerBallDraw extends Draw
         return result;
     }
 
-    private static Integer[] randomGenerateSelection()
+    private static Integer randomGeneratePowerBall(PowerBallAnalyseResult powerBallAnalyseResult)
     {
-        Set<Integer> selectionSet = new HashSet<>();
-
-        while (selectionSet.size() < NUM_OF_BALL)
-        {
-            selectionSet.add(random.nextInt(MAX_NUM) + 1);
-        }
-
-        return selectionSet.toArray(new Integer[NUM_OF_BALL]);
-    }
-
-    private static Integer[] randomGenerateSelection(List<List<Integer>> potentialNumsGroup)
-    {
-        Set<Integer> selectionSet = new HashSet<>();
-
-        while (selectionSet.size() < NUM_OF_BALL)
-        {
-            List<Integer> potentialNums = new ArrayList<Integer>();
-            IntStream.range(0, selectionSet.size() + 1).forEach(j -> potentialNums.addAll(potentialNumsGroup.get(j)));
-            int num = random.nextInt(potentialNums.size());
-            selectionSet.add(potentialNums.get(num));
-        }
-
-        return selectionSet.toArray(new Integer[NUM_OF_BALL]);
-    }
-
-    private static Integer randomGeneratePowerBall(AnalyseResult analyseResult)
-    {
-        int randomResult = random.nextInt(analyseResult.getSampleSize());
-        for (Frequency frequency : analyseResult.getPowerBallfrequencies())
+        int randomResult = random.nextInt(powerBallAnalyseResult.getSampleSize());
+        for (Frequency frequency : powerBallAnalyseResult.getPowerBallfrequencies())
         {
             if (randomResult<frequency.getCount()) return frequency.getNum();
             randomResult -= frequency.getCount();
@@ -354,14 +308,14 @@ public class PowerBallDraw extends Draw
         return 0;
     }
 
-    private static Integer randomGeneratePowerBall(AnalyseResult analyseResult, Integer id)
+    private static Integer randomGeneratePowerBall(PowerBallAnalyseResult powerBallAnalyseResult, Integer id)
     {
         int randomResult;
         do
         {
             randomResult = random.nextInt(MAX_POWER_BALL_NUM) + 1;
         }
-        while (analyseResult.getPowerBallLastResultId(randomResult) + analyseResult.getPowerBallMinDistance(randomResult) > id);
+        while (powerBallAnalyseResult.getPowerBallLastResultId(randomResult) + powerBallAnalyseResult.getPowerBallMinDistance(randomResult) > id);
 
         return randomResult;
     }

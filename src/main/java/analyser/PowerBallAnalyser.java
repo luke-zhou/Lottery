@@ -1,5 +1,6 @@
 package analyser;
 
+import domain.analyserresult.PowerBallAnalyseResult;
 import domain.draw.PowerBallDraw;
 
 import java.util.HashMap;
@@ -9,42 +10,40 @@ import java.util.Map;
 /**
  * Created by Luke on 5/05/2016.
  */
-public class PowerBallAnalyser
+public class PowerBallAnalyser extends AbstractAnalyser<PowerBallDraw>
 {
-    private List<PowerBallDraw> results;
-
     public PowerBallAnalyser(List<PowerBallDraw> results)
     {
-        this.results = results;
+        super(results);
     }
 
-    public Map<Integer, AnalyseResult> start()
+    public Map<Integer, PowerBallAnalyseResult> start()
     {
-        Map<Integer, AnalyseResult> analyseResultMap = new HashMap<>();
+        Map<Integer, PowerBallAnalyseResult> analyseResultMap = new HashMap<>();
 
         results.stream().forEach(draw -> {
-            AnalyseResult analyseResult = calculateAnalyseResult(draw);
-            analyseResultMap.put(draw.getId(), analyseResult);
+            PowerBallAnalyseResult powerBallAnalyseResult = calculateAnalyseResult(draw);
+            analyseResultMap.put(draw.getId(), powerBallAnalyseResult);
         });
 
         return analyseResultMap;
     }
 
-    private AnalyseResult calculateAnalyseResult(PowerBallDraw draw)
+    private PowerBallAnalyseResult calculateAnalyseResult(PowerBallDraw draw)
     {
-        AnalyseResult analyseResult = new AnalyseResult(results.indexOf(draw) + 1);
+        PowerBallAnalyseResult powerBallAnalyseResult = new PowerBallAnalyseResult(results.indexOf(draw) + 1);
 
         results.stream().filter(r -> r.getId() <= draw.getId()).forEach(r -> {
-            analyseResult.updateNumFrequency(r);
+            powerBallAnalyseResult.updateNumFrequency(r);
 
-            analyseResult.updatePowerBallFrequency(r.getPowerBall());
+            powerBallAnalyseResult.updatePowerBallFrequency(r.getPowerBall());
 
-            analyseResult.updatePowerBallMinDistancePattern(r.getPowerBall(), r.getId());
+            powerBallAnalyseResult.updatePowerBallMinDistancePattern(r.getPowerBall(), r.getId());
 
         });
 
-        analyseResult.finalize();
+        powerBallAnalyseResult.finalize();
 
-        return analyseResult;
+        return powerBallAnalyseResult;
     }
 }
