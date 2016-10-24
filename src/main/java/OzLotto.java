@@ -26,6 +26,7 @@ public class OzLotto
 //        trainer.turnOnResultPrint();
 
         trainer.train("OZLotto Benchmark").by(trainer.trainingBenchMark());
+        trainer.train("OZLotto frequency Result").by(trainer.trainingFrequency());
 
     }
 

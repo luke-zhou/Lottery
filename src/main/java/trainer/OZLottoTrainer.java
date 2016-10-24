@@ -2,11 +2,8 @@ package trainer;
 
 import analyser.OZLottoAnalyser;
 import domain.analyserresult.OZLottoAnalyserResult;
-import domain.analyserresult.PowerBallAnalyseResult;
 import domain.draw.OZLottoDraw;
-import domain.draw.PowerBallDraw;
 import domain.result.TrainingResult;
-import util.CsvUtil;
 import util.LogUtil;
 
 import java.io.File;
@@ -43,25 +40,29 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw>
     public Consumer<TrainingResult> trainingBenchMark()
     {
         return generateTrainingResultConsumer(
-                trainingResult -> ozLottoDrawConsumer(trainingResult,
+                trainingResult -> generateOZLottoDrawConsumer(trainingResult,
                         draw -> OZLottoDraw.generateRandomDraw()
                 ));
     }
 
-    private Consumer<OZLottoDraw> ozLottoDrawConsumer(TrainingResult trainingResult, Function<OZLottoDraw, OZLottoDraw> generationFunction)
+    private Consumer<OZLottoDraw> generateOZLottoDrawConsumer(TrainingResult trainingResult, Function<OZLottoDraw, OZLottoDraw> generationFunction)
     {
         return r -> {
-            //this is to make even with the power hit
-            IntStream.range(0, 20).forEach(_i -> {
-                OZLottoDraw generatedDraw = generationFunction.apply(r);
-                int division = r.checkWin(generatedDraw);
-                trainingResult.addResult(division);
-                if (division > 0 && printOutResultOn)
-                {
-                    LogUtil.log(generatedDraw.toWinResultString(r));
-                }
-            });
-            trainingResult.setTotalTrainingSize(trainingResult.getTotalTrainingSize() - 19);
+            OZLottoDraw generatedDraw = generationFunction.apply(r);
+            int division = r.checkWin(generatedDraw);
+            trainingResult.addResult(division);
+            if (division > 0 && printOutResultOn)
+            {
+                LogUtil.log(generatedDraw.toWinResultString(r));
+            }
         };
+    }
+
+    public Consumer<TrainingResult> trainingFrequency()
+    {
+        return generateTrainingResultConsumer(
+                trainingResult -> generateOZLottoDrawConsumer(trainingResult,
+                        draw -> OZLottoDraw.generateDrawFrequency(analyseResultMap.get(draw.getId() - 1))
+                ));
     }
 }

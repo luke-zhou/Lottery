@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
  * Date: 24/10/2016
  * Time: 1:22 PM
  */
-public class AbstractAnalyserResult
+public abstract class AbstractAnalyserResult
 {
     protected Integer sampleSize;
     protected Map<Integer, Integer> numFrequencyMap = new HashMap<>();
@@ -43,7 +43,7 @@ public class AbstractAnalyserResult
         frequencies.addAll(numFrequencies);
 
         List<List<Integer>> potentialNumsGroup = new ArrayList<>();
-        IntStream.range(0, PowerBallDraw.NUM_OF_BALL).forEach(i -> {
+        IntStream.range(0, getNumOfBall()).forEach(i -> {
             List<Integer> potentialNums = new ArrayList<>();
             int size = sampleSize;
             while(!frequencies.isEmpty())
@@ -61,6 +61,8 @@ public class AbstractAnalyserResult
 
         return potentialNumsGroup;
     }
+
+    protected abstract int getNumOfBall();
 
     public void finalize()
     {

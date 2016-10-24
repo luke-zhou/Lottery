@@ -99,8 +99,8 @@ public abstract class AbstractTrainer<T extends Draw>
     private void getRidAbnormalResults(List<TrainingResult> trainingResults)
     {
         Collections.sort(trainingResults, (r1, r2) -> r1.getTotalDivision().compareTo(r2.getTotalDivision()));
-        //temporary just remove first and last three elements
-        IntStream.range(0, 3).forEach(_i -> {
+        //temporary just remove first and last two elements
+        IntStream.range(0, 2).forEach(_i -> {
             trainingResults.remove(0);
             trainingResults.remove(trainingResults.size() - 1);
         });

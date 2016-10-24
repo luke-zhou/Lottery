@@ -1,5 +1,6 @@
 package domain.draw;
 
+import domain.analyserresult.OZLottoAnalyserResult;
 import util.NumberGenUtil;
 
 import java.util.Arrays;
@@ -122,6 +123,17 @@ public class OZLottoDraw extends Draw
         return draw;
     }
 
+    public static OZLottoDraw generateDrawFrequency(OZLottoAnalyserResult ozLottoAnalyserResult)
+    {
+        Integer[] selection;
+
+        selection = NumberGenUtil.randomGenerateSelection(NUM_OF_BALL, ozLottoAnalyserResult.getPotentialNumsGroup());
+        OZLottoDraw draw = new OZLottoDraw(selection);
+
+
+        return draw;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -139,4 +151,5 @@ public class OZLottoDraw extends Draw
         int result = Arrays.hashCode(sortedNums);
         return result;
     }
+
 }

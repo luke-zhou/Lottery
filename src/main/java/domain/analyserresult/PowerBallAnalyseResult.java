@@ -23,6 +23,12 @@ public class PowerBallAnalyseResult extends AbstractAnalyserResult
         super(sampleSize);
     }
 
+    @Override
+    protected int getNumOfBall()
+    {
+        return PowerBallDraw.NUM_OF_BALL;
+    }
+
     public Integer getPowerBallFrequency(Integer powerBall)
     {
         return powerBallFrequencyMap.containsKey(powerBall) ? powerBallFrequencyMap.get(powerBall) : 0;
