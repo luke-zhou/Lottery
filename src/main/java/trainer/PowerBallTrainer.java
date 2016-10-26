@@ -1,6 +1,7 @@
 package trainer;
 
 import analyser.PowerBallAnalyser;
+import domain.analyserresult.AbstractAnalyserResult;
 import domain.analyserresult.PowerBallAnalyseResult;
 import domain.draw.PowerBallDraw;
 import domain.result.TrainingResult;
@@ -110,6 +111,12 @@ public class PowerBallTrainer extends AbstractTrainer<PowerBallDraw>
             int division = r.checkWinPowerHit(PowerBallDraw.generateDrawFrequencyNPBMinDistance(powerBallAnalyseResult, r.getId() + 1));
             trainingResult.addResult(division);
         });
+    }
+
+    @Override
+    public Map<Integer, ? extends AbstractAnalyserResult> getAnalyseResultMap()
+    {
+        return analyseResultMap;
     }
 
     public Consumer<TrainingResult> trainingBenchMark()

@@ -140,9 +140,14 @@ public class PowerBallDraw extends Draw
         return Double.valueOf(differ);
     }
 
-    public int checkWin(PowerBallDraw draw)
+    public int checkWin(Draw draw)
     {
-        return calculateDivision(sortedNums, draw.getSortedNums(), powerBall == draw.getPowerBall());
+        if (draw instanceof PowerBallDraw){
+            PowerBallDraw powerBallDraw = (PowerBallDraw) draw;
+            return calculateDivision(sortedNums, powerBallDraw.getSortedNums(), powerBall == powerBallDraw.getPowerBall());
+        }
+
+        return 0;
     }
 
     public String toStringUnSorted()
@@ -163,12 +168,16 @@ public class PowerBallDraw extends Draw
                 '}';
     }
 
-    public String toWinResultString(PowerBallDraw actualResult)
+    public String toWinResultString(Draw actualResult)
     {
+        if ( !(actualResult instanceof PowerBallDraw)){
+            throw new IllegalArgumentException("Wrong type of draw");
+        }
+        PowerBallDraw actualPowerBallResult = (PowerBallDraw) actualResult;
         StringBuilder winResult = new StringBuilder();
         Arrays.stream(sortedNums).forEach(i->{
             winResult.append(i);
-            if (Arrays.stream(actualResult.getNums()).anyMatch(j-> j==i))
+            if (Arrays.stream(actualPowerBallResult.getNums()).anyMatch(j-> j==i))
             {
                 winResult.append("*");
             }
@@ -176,7 +185,7 @@ public class PowerBallDraw extends Draw
         });
         return "PowerBallDraw{" +
                 "nums=" + winResult.toString() +
-                "powerBall=" + powerBall + (powerBall==actualResult.getPowerBall()?"*":"")+
+                "powerBall=" + powerBall + (powerBall==actualPowerBallResult.getPowerBall()?"*":"")+
                 '}';
     }
 

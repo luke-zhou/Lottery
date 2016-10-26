@@ -28,11 +28,11 @@ public class Main
         PowerBallTrainer trainer = new PowerBallTrainer(resultFile);
 //        trainer.turnOnResultPrint();
 
-        trainer.train("PowerBall Benchmark").by(trainer.trainingBenchMark());
-        trainer.train("PowerHit Benchmark").by(trainer.trainingHitBenchMark());
-        trainer.train("PowerBall frequency Result").by(trainer.trainingFrequency());
-        trainer.train("PowerBall frequency and pb Result").by(trainer.trainingFrequencyNPB());
-        trainer.train("PowerHit frequency Result").by(trainer.trainingHitFrequency());
+        trainer.train("PowerBall Benchmark").by_bk(trainer.trainingBenchMark());
+        trainer.train("PowerHit Benchmark").by_bk(trainer.trainingHitBenchMark());
+        trainer.train("PowerBall frequency Result").by_bk(trainer.trainingFrequency());
+        trainer.train("PowerBall frequency and pb Result").by_bk(trainer.trainingFrequencyNPB());
+        trainer.train("PowerHit frequency Result").by_bk(trainer.trainingHitFrequency());
 //        trainer.train("PowerBall PB Mini Distance Pattern Result").by(trainer.trainingPowerBallMinDistancePattern());
 //        trainer.train("PowerBall frequency N PB Mini Distance Pattern Result").by(trainer.trainingFrequencyNPowerBallMinDistancePattern());
 
@@ -42,25 +42,25 @@ public class Main
         rule.addArguments(1);
         rules.clear();
         rules.add(rule);
-        trainer.train("PowerBall frequency with rule a=b+(1)").by(trainer.trainingFrequency(rules));
+        trainer.train("PowerBall frequency with rule a=b+(1)").by_bk(trainer.trainingFrequency(rules));
 
         rule = new Rule(2);
         rule.addArguments(1);
         rules.clear();
         rules.add(rule);
-        trainer.train("PowerBall frequency and pb with rule a=b+(1)").by(trainer.trainingFrequencyNPB(rules));
+        trainer.train("PowerBall frequency and pb with rule a=b+(1)").by_bk(trainer.trainingFrequencyNPB(rules));
 
         rule = new Rule(2);
         rule.addArguments(13);
         rules.clear();
         rules.add(rule);
-            trainer.train("PowerBall frequency with rule a=b+(13)").by(trainer.trainingFrequency(rules));
+            trainer.train("PowerBall frequency with rule a=b+(13)").by_bk(trainer.trainingFrequency(rules));
 
         rule = new Rule(2);
         rule.addArguments(13);
         rules.clear();
         rules.add(rule);
-        trainer.train("PowerBall frequency and pb with rule a=b+(13)").by(trainer.trainingFrequencyNPB(rules));
+        trainer.train("PowerBall frequency and pb with rule a=b+(13)").by_bk(trainer.trainingFrequencyNPB(rules));
 
         rules.clear();
         Rule rule1 = new Rule(2);
@@ -69,7 +69,7 @@ public class Main
         Rule rule2 = new Rule(2);
         rule2.addArguments(13);
         rules.add(rule1);
-        trainer.train("PowerBall frequency with rule a=b+(" + 1 + ", " + 13 + ")").by(trainer.trainingFrequency(rules));
+        trainer.train("PowerBall frequency with rule a=b+(" + 1 + ", " + 13 + ")").by_bk(trainer.trainingFrequency(rules));
 
         rules.clear();
         rule1 = new Rule(2);
@@ -78,7 +78,7 @@ public class Main
         rule2 = new Rule(2);
         rule2.addArguments(13);
         rules.add(rule1);
-        trainer.train("PowerBall frequency and pb with rule a=b+(" + 1 + ", " + 13 + ")").by(trainer.trainingFrequencyNPB(rules));
+        trainer.train("PowerBall frequency and pb with rule a=b+(" + 1 + ", " + 13 + ")").by_bk(trainer.trainingFrequencyNPB(rules));
 
 
 //        IntStream.range(1,2).forEach(i->{
@@ -129,6 +129,6 @@ public class Main
 //        rule.addArguments(15);
 //        rules.add(rule);
 //        LogUtil.log("generate for 1046");
-//        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDrawFrequency(analyseResults.get(1045), rules)).forEach(System.out::println);
+//        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDrawFrequencyByGroup(analyseResults.get(1045), rules)).forEach(System.out::println);
 //    }
 }

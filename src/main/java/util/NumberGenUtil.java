@@ -1,5 +1,8 @@
 package util;
 
+import analyser.Frequency;
+import domain.analyserresult.AbstractAnalyserResult;
+
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -36,7 +39,7 @@ public class NumberGenUtil
 
         while (selectionSet.size() < count)
         {
-            List<Integer> potentialNums = new ArrayList<Integer>();
+            List<Integer> potentialNums = new ArrayList<>();
             IntStream.range(0, selectionSet.size() + 1).forEach(j -> potentialNums.addAll(potentialNumsGroup.get(j)));
             int num = random.nextInt(potentialNums.size());
             selectionSet.add(potentialNums.get(num));
@@ -46,4 +49,24 @@ public class NumberGenUtil
     }
 
 
+    public static Integer[] randomGenerateSelection(int numOfBall, List<Frequency> frequencies)
+    {
+        Set<Integer> selectionSet = new HashSet<>();
+        int totalNum = (int) frequencies.stream().mapToLong(Frequency::getCount).sum();
+        while (selectionSet.size() < numOfBall)
+        {
+            List<Frequency> lFrequencies = new ArrayList<>();
+            lFrequencies.addAll(frequencies);
+            int randumNum = random.nextInt(totalNum)+1;
+            int selectNum =0;
+            while(randumNum > 0){
+              Frequency frequency = frequencies.remove(0);
+                randumNum -= frequency.getCount();
+                selectNum = frequency.getNum();
+            }
+            selectionSet.add(selectNum);
+        }
+
+        return selectionSet.toArray(new Integer[numOfBall]);
+    }
 }

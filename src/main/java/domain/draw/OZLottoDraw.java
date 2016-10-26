@@ -1,9 +1,14 @@
 package domain.draw;
 
+import domain.analyserresult.AbstractAnalyserResult;
 import domain.analyserresult.OZLottoAnalyserResult;
 import util.NumberGenUtil;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,7 +34,7 @@ public class OZLottoDraw extends Draw
         return NUM_OF_BALL;
     }
 
-    public int checkWin(OZLottoDraw draw)
+    public int checkWin(Draw draw)
     {
         return calculateDivision(sortedNums, draw.getSortedNums());
     }
@@ -95,12 +100,16 @@ public class OZLottoDraw extends Draw
         return division;
     }
 
-    public String toWinResultString(OZLottoDraw actualResult)
+    public String toWinResultString(Draw actualResult)
     {
+        if ( !(actualResult instanceof OZLottoDraw)){
+            throw new IllegalArgumentException("Wrong type of draw");
+        }
+        OZLottoDraw actualOZLottoDrawResult = (OZLottoDraw) actualResult;
         StringBuilder winResult = new StringBuilder();
         Arrays.stream(sortedNums).forEach(i -> {
             winResult.append(i);
-            if (Arrays.stream(actualResult.getNums()).anyMatch(j -> j == i))
+            if (Arrays.stream(actualOZLottoDrawResult.getNums()).anyMatch(j -> j == i))
             {
                 winResult.append("*");
             }
@@ -123,11 +132,22 @@ public class OZLottoDraw extends Draw
         return draw;
     }
 
-    public static OZLottoDraw generateDrawFrequency(OZLottoAnalyserResult ozLottoAnalyserResult)
+    public static OZLottoDraw generateDrawFrequencyByGroup(AbstractAnalyserResult analyserResult)
     {
         Integer[] selection;
 
-        selection = NumberGenUtil.randomGenerateSelection(NUM_OF_BALL, ozLottoAnalyserResult.getPotentialNumsGroup());
+        selection = NumberGenUtil.randomGenerateSelection(NUM_OF_BALL, analyserResult.getPotentialNumsGroup());
+        OZLottoDraw draw = new OZLottoDraw(selection);
+
+
+        return draw;
+    }
+
+    public static OZLottoDraw generateDrawFrequencyByWeight(AbstractAnalyserResult analyserResult)
+    {
+        Integer[] selection;
+
+        selection = NumberGenUtil.randomGenerateSelection(NUM_OF_BALL, analyserResult.getNumFrequencies());
         OZLottoDraw draw = new OZLottoDraw(selection);
 
 
@@ -152,4 +172,11 @@ public class OZLottoDraw extends Draw
         return result;
     }
 
+    @Override
+    public String toString()
+    {
+        return "OZLottoDraw{" +
+                "nums=" + Arrays.toString(sortedNums) +
+                '}';
+    }
 }

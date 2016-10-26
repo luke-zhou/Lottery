@@ -1,3 +1,4 @@
+import domain.draw.OZLottoDraw;
 import trainer.OZLottoTrainer;
 
 import java.io.File;
@@ -25,8 +26,12 @@ public class OzLotto
         OZLottoTrainer trainer = new OZLottoTrainer(resultFile);
 //        trainer.turnOnResultPrint();
 
-        trainer.train("OZLotto Benchmark").by(trainer.trainingBenchMark());
-        trainer.train("OZLotto frequency Result").by(trainer.trainingFrequency());
+//        trainer.train("OZLotto Benchmark").by(trainer.trainingBenchMark());
+//        trainer.train("OZLotto frequency Result").by(trainer.trainingFrequency());
+
+        trainer.train("OZLotto Benchmark").by(() -> OZLottoDraw.generateRandomDraw());
+        trainer.train("OZLotto frequency Result by group").by(ozLottoAnalyserResult -> OZLottoDraw.generateDrawFrequencyByGroup(ozLottoAnalyserResult));
+        trainer.train("OZLotto frequency Result by weight").by(ozLottoAnalyserResult -> OZLottoDraw.generateDrawFrequencyByWeight(ozLottoAnalyserResult));
 
     }
 
@@ -48,6 +53,6 @@ public class OzLotto
 //        rule.addArguments(15);
 //        rules.add(rule);
 //        LogUtil.log("generate for 1046");
-//        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDrawFrequency(analyseResults.get(1045), rules)).forEach(System.out::println);
+//        IntStream.range(0, 20).mapToObj(i -> PowerBallDraw.generateDrawFrequencyByGroup(analyseResults.get(1045), rules)).forEach(System.out::println);
 //    }
 }

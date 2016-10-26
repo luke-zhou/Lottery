@@ -1,6 +1,7 @@
 package trainer;
 
 import analyser.OZLottoAnalyser;
+import domain.analyserresult.AbstractAnalyserResult;
 import domain.analyserresult.OZLottoAnalyserResult;
 import domain.draw.OZLottoDraw;
 import domain.result.TrainingResult;
@@ -37,6 +38,12 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw>
     }
 
     @Override
+    public Map<Integer, ? extends AbstractAnalyserResult> getAnalyseResultMap()
+    {
+        return analyseResultMap;
+    }
+
+    @Override
     public Consumer<TrainingResult> trainingBenchMark()
     {
         return generateTrainingResultConsumer(
@@ -62,7 +69,7 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw>
     {
         return generateTrainingResultConsumer(
                 trainingResult -> generateOZLottoDrawConsumer(trainingResult,
-                        draw -> OZLottoDraw.generateDrawFrequency(analyseResultMap.get(draw.getId() - 1))
+                        draw -> OZLottoDraw.generateDrawFrequencyByGroup(analyseResultMap.get(draw.getId() - 1))
                 ));
     }
 }

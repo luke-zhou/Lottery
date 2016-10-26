@@ -75,11 +75,6 @@ public abstract class AbstractAnalyserResult
         potentialNumsGroup = groupResultByFrequency();
     }
 
-    public List<Frequency> getNumFrequencies()
-    {
-        return numFrequencies;
-    }
-
     public List<List<Integer>> getPotentialNumsGroup()
     {
         return potentialNumsGroup;
@@ -88,5 +83,10 @@ public abstract class AbstractAnalyserResult
     public Integer getSampleSize()
     {
         return sampleSize;
+    }
+
+    public List<Frequency> getNumFrequencies()
+    {
+        return numFrequencies;
     }
 }

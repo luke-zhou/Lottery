@@ -42,6 +42,8 @@ public abstract class Draw
     }
 
     public abstract Integer getNumOfBall();
+    public abstract int checkWin(Draw draw);
+    public abstract String toWinResultString(Draw actualResult);
 
     public Boolean hasNum(int num)
     {
