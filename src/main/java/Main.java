@@ -1,4 +1,5 @@
 import domain.rule.Rule;
+import trainer.OZLottoTrainer;
 import trainer.PowerBallTrainer;
 
 import java.io.File;
@@ -11,16 +12,22 @@ import java.util.List;
  */
 public class Main
 {
-    private static final String RESULT_FILE_LOCATION = "data/Powerball-1045.csv";
+    private static final String RESULT_FILE_LOCATION = "data/OzLotto.csv";
 
     public static void main(String[] args) throws URISyntaxException
     {
-        File powerBallResultCsv = new File(Main.class.getResource(RESULT_FILE_LOCATION).toURI());
+        File resultCsv = new File(Main.class.getResource(RESULT_FILE_LOCATION).toURI());
 
-         doTraining(powerBallResultCsv);
+        //System.out.println(-3%3);
+        trainOZLotto(resultCsv);
 
 //        generateDraws(powerBallResultCsv);
 
+    }
+
+    private static void trainOZLotto(File resultFile) {
+        OZLottoTrainer trainer = new OZLottoTrainer(resultFile);
+        trainer.trainSeparateNum();
     }
 
     private static void doTraining(File resultFile)
