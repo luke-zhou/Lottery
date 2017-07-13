@@ -72,32 +72,37 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
     public void trainSeparateNum() {
         int aRange = 100;
         int bRange = 100;
+        int cRange = 100;
         int distanceRange = 100;
 //        int numIndex =1;
-        for (int numIndex = 1; numIndex < 2; numIndex++)
+        for (int thatNumIndex = 1; thatNumIndex < OZLottoDraw.NUM_OF_BALL; thatNumIndex++)
             for (int distance = 1; distance <= distanceRange; distance++) {
-                for (int a = -aRange; a <= aRange; a++) {
-                    for (int b = -bRange; b <= bRange; b++) {
-                        SeparateNumTrainingResult result = new SeparateNumTrainingResult();
-                        result.setA(a);
-                        result.setB(b);
-                        result.setDistance(distance);
-                        result.setNumIndex(numIndex);
-                        for (int i = 0 + distance; i < results.size(); i++) {
-                            try {
-//                                int expectNum = Math.abs((results.get(i - distance).getNum(numIndex) * a + b) % OZLottoDraw.MAX_NUM) + 1;
-                                int expectNum = NumberGenUtil.randomGenerateNumber(45);
-                                int actualNum = results.get(i).getNum(numIndex);
-                                result.accumulateSize();
-                                result.accumulateMatch(expectNum == actualNum);
-                                result.accumulateDiff(Math.abs(expectNum - actualNum));
+                for (int c =1; c<=cRange; c++) {
+                    for (int a = -aRange; a <= aRange; a++) {
+                        for (int b = -bRange; b <= bRange; b++) {
+                            SeparateNumTrainingResult result = new SeparateNumTrainingResult();
+                            result.setA(a);
+                            result.setB(b);
+                            result.setC(c);
+                            result.setDistance(distance);
+                            result.setThisNumIndex(1);
+                            result.setThatNumIndex(thatNumIndex);
+                            for (int i = 0 + distance; i < results.size(); i++) {
+                                try {
+                                int expectNum = Math.abs(((results.get(i - distance).getNum(thatNumIndex) * a)%c + b) % OZLottoDraw.MAX_NUM) + 1;
+//                                int expectNum = NumberGenUtil.randomGenerateNumber(45);
+                                    int actualNum = results.get(i).getNum(1);
+                                    result.accumulateSize();
+                                    result.accumulateMatch(expectNum == actualNum);
+                                    result.accumulateDiff(Math.abs(expectNum - actualNum));
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
+                            if (result.getTotalMatch() > result.getTotalSize() / 16) System.out.println(result);
+                            if (result.getTotalDiff() < result.getTotalSize() * 8) System.out.println(result);
                         }
-                        if (result.getTotalMatch() > result.getTotalSize() / 16) System.out.println(result);
-                        if (result.getTotalDiff() < result.getTotalSize() *8) System.out.println(result);
                     }
                 }
             }

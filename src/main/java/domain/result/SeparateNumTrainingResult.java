@@ -9,8 +9,10 @@ public class SeparateNumTrainingResult {
     Integer totalSize =0;
     Integer a;
     Integer b;
+    Integer c;
     Integer distance;
-    Integer numIndex;
+    Integer thisNumIndex;
+    Integer thatNumIndex;
 
     public void accumulateMatch(boolean isMatch) {
         totalMatch += isMatch ? 1 : 0;
@@ -48,10 +50,17 @@ public class SeparateNumTrainingResult {
         this.distance = distance;
     }
 
-    public void setNumIndex(Integer numIndex) {
-        this.numIndex = numIndex;
+    public void setThisNumIndex(Integer thisNumIndex) {
+        this.thisNumIndex = thisNumIndex;
     }
 
+    public void setThatNumIndex(Integer thatNumIndex) {
+        this.thatNumIndex = thatNumIndex;
+    }
+
+    public void setC(Integer c) {
+        this.c = c;
+    }
 
     @Override
     public String toString() {
@@ -61,8 +70,10 @@ public class SeparateNumTrainingResult {
                 ", totalSize=" + totalSize +
                 ", a=" + a +
                 ", b=" + b +
+                ", c=" + c +
                 ", distance=" + distance +
-                ", numIndex=" + numIndex +
+                ", thisNumIndex=" + thisNumIndex +
+                ", thatNumIndex=" + thatNumIndex +
                 '}';
     }
 }

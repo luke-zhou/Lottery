@@ -18,7 +18,7 @@ public class Main
     {
         File resultCsv = new File(Main.class.getResource(RESULT_FILE_LOCATION).toURI());
 
-        //System.out.println(-3%3);
+        //System.out.println(4%-3);
         trainOZLotto(resultCsv);
 
 //        generateDraws(powerBallResultCsv);
