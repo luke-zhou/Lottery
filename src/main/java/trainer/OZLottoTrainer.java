@@ -80,7 +80,7 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
         {
             Map<Integer, Integer> numMap = createNumMapping();
 //        int numIndex =1;
-            for (int thisNumIndex = 1; thisNumIndex <= 1; thisNumIndex++) {
+            for (int thisNumIndex = 1; thisNumIndex <= OZLottoDraw.NUM_OF_BALL; thisNumIndex++) {
 
                 for (int thatNumIndex = 1; thatNumIndex <= OZLottoDraw.NUM_OF_BALL; thatNumIndex++) {
                     System.out.println("Testing for position(" + thisNumIndex + ") on (" + thatNumIndex + ")");
@@ -95,9 +95,10 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
                                     result.setDistance(distance);
                                     result.setThisNumIndex(thisNumIndex);
                                     result.setThatNumIndex(thatNumIndex);
-                                    for (int i = distance; i < results.size(); i++) {
+                                    for (int i = results.size()-100; i < results.size(); i++) {
                                         try {
-                                            int testingNum = numMap.get(results.get(i - distance).getNum(thatNumIndex));
+//                                            int testingNum = numMap.get(results.get(i - distance).getNum(thatNumIndex));
+                                            int testingNum = results.get(i - distance).getNum(thatNumIndex);
                                             int expectNum = Math.abs(((testingNum * a) % c + b) % OZLottoDraw.MAX_NUM) + 1;
                                             int actualNum = results.get(i).getNum(thisNumIndex);
                                             result.accumulateSize();
@@ -109,7 +110,7 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
                                         }
                                     }
 
-                                    if (result.getTotalMatch() > result.getTotalSize() / 10) System.out.println(result);
+                                    if (result.getTotalMatch() > result.getTotalSize() / 7) System.out.println(result);
 //                                if (result.getTotalDiff() < result.getTotalSize() * 6) System.out.println(result);
                                 }
                             }
