@@ -27,8 +27,8 @@ public class Main
 
     private static void trainOZLotto(File resultFile) {
         OZLottoTrainer trainer = new OZLottoTrainer(resultFile);
-        trainer.trainSeparateNum();
-//        trainer.testBySeparateNum();
+//        trainer.trainSeparateNum();
+        trainer.testBySeparateNum();
 //        trainer.testByRandom();
 //        trainer.generateBySeparateNum(613);
 

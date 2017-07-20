@@ -1,0 +1,10 @@
+OZLotto Result Sample Size: 613
+old : 1 new : 37	old : 2 new : 39	old : 3 new : 30	old : 4 new : 6	old : 5 new : 24	old : 6 new : 3	old : 7 new : 45	old : 8 new : 44	old : 9 new : 4	old : 10 new : 21	old : 11 new : 29	old : 12 new : 13	old : 13 new : 18	old : 14 new : 9	old : 15 new : 11	old : 16 new : 27	old : 17 new : 16	old : 18 new : 15	old : 19 new : 5	old : 20 new : 14	old : 21 new : 32	old : 22 new : 20	old : 23 new : 42	old : 24 new : 41	old : 25 new : 22	old : 26 new : 2	old : 27 new : 26	old : 28 new : 12	old : 29 new : 33	old : 30 new : 10	old : 31 new : 8	old : 32 new : 36	old : 33 new : 23	old : 34 new : 35	old : 35 new : 1	old : 36 new : 40	old : 37 new : 43	old : 38 new : 38	old : 39 new : 25	old : 40 new : 34	old : 41 new : 28	old : 42 new : 31	old : 43 new : 19	old : 44 new : 7	old : 45 new : 17	
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1556, totalSize=100, a=-63, b=57, c=50, distance=28, thisNumIndex=4, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1556, totalSize=100, a=-13, b=57, c=50, distance=28, thisNumIndex=4, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1556, totalSize=100, a=37, b=7, c=50, distance=28, thisNumIndex=4, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1556, totalSize=100, a=37, b=52, c=50, distance=28, thisNumIndex=4, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1556, totalSize=100, a=37, b=97, c=50, distance=28, thisNumIndex=4, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1556, totalSize=100, a=87, b=7, c=50, distance=28, thisNumIndex=4, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1556, totalSize=100, a=87, b=52, c=50, distance=28, thisNumIndex=4, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1556, totalSize=100, a=87, b=97, c=50, distance=28, thisNumIndex=4, thatNumIndex=5}

@@ -117,6 +117,7 @@ public class OZLottoDraw extends Draw
         });
         return "OZLottoDraw{" +
                 "nums=" + winResult.toString() +
+                "division=" + checkWin(actualOZLottoDrawResult) +
                 '}';
     }
 

@@ -1,0 +1,241 @@
+OZLotto Result Sample Size: 613
+old : 1 new : 20	old : 2 new : 44	old : 3 new : 45	old : 4 new : 38	old : 5 new : 30	old : 6 new : 21	old : 7 new : 31	old : 8 new : 29	old : 9 new : 35	old : 10 new : 42	old : 11 new : 39	old : 12 new : 33	old : 13 new : 10	old : 14 new : 3	old : 15 new : 13	old : 16 new : 15	old : 17 new : 28	old : 18 new : 14	old : 19 new : 19	old : 20 new : 2	old : 21 new : 27	old : 22 new : 16	old : 23 new : 18	old : 24 new : 17	old : 25 new : 23	old : 26 new : 8	old : 27 new : 4	old : 28 new : 1	old : 29 new : 36	old : 30 new : 6	old : 31 new : 26	old : 32 new : 24	old : 33 new : 37	old : 34 new : 7	old : 35 new : 9	old : 36 new : 41	old : 37 new : 25	old : 38 new : 5	old : 39 new : 32	old : 40 new : 34	old : 41 new : 22	old : 42 new : 43	old : 43 new : 11	old : 44 new : 12	old : 45 new : 40	
+Testing for position(1) on (1)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-83, b=54, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-83, b=99, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-31, b=54, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-31, b=99, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=21, b=2, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=21, b=47, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=21, b=92, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=73, b=2, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=73, b=47, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=73, b=92, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+Testing for position(1) on (2)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1174, totalSize=100, a=-70, b=24, c=67, distance=20, thisNumIndex=1, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1174, totalSize=100, a=-64, b=43, c=67, distance=20, thisNumIndex=1, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1174, totalSize=100, a=-3, b=24, c=67, distance=20, thisNumIndex=1, thatNumIndex=2}
+Testing for position(1) on (3)
+Testing for position(1) on (4)
+Testing for position(1) on (5)
+Testing for position(1) on (6)
+Testing for position(1) on (7)
+Testing for position(2) on (1)
+Testing for position(2) on (2)
+Testing for position(2) on (3)
+Testing for position(2) on (4)
+Testing for position(2) on (5)
+Testing for position(2) on (6)
+Testing for position(2) on (7)
+Testing for position(3) on (1)
+Testing for position(3) on (2)
+Testing for position(3) on (3)
+Testing for position(3) on (4)
+Testing for position(3) on (5)
+Testing for position(3) on (6)
+Testing for position(3) on (7)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-72, b=42, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-72, b=87, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-42, b=42, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-42, b=87, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-12, b=42, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-12, b=87, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=16, totalDiff=1363, totalSize=100, a=-67, b=56, c=88, distance=73, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=16, totalDiff=1363, totalSize=100, a=-21, b=32, c=88, distance=73, thisNumIndex=3, thatNumIndex=7}
+Testing for position(4) on (1)
+Testing for position(4) on (2)
+Testing for position(4) on (3)
+Testing for position(4) on (4)
+Testing for position(4) on (5)
+Testing for position(4) on (6)
+Testing for position(4) on (7)
+Testing for position(5) on (1)
+Testing for position(5) on (2)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1287, totalSize=100, a=81, b=23, c=87, distance=68, thisNumIndex=5, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1287, totalSize=100, a=81, b=68, c=87, distance=68, thisNumIndex=5, thatNumIndex=2}
+Testing for position(5) on (3)
+Testing for position(5) on (4)
+Testing for position(5) on (5)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1300, totalSize=100, a=-49, b=27, c=90, distance=18, thisNumIndex=5, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1300, totalSize=100, a=-41, b=63, c=90, distance=18, thisNumIndex=5, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1353, totalSize=100, a=-52, b=89, c=100, distance=35, thisNumIndex=5, thatNumIndex=5}
+Testing for position(5) on (6)
+Testing for position(5) on (7)
+Testing for position(6) on (1)
+Testing for position(6) on (2)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1244, totalSize=100, a=-65, b=48, c=62, distance=41, thisNumIndex=6, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1244, totalSize=100, a=-59, b=14, c=62, distance=41, thisNumIndex=6, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1244, totalSize=100, a=-3, b=48, c=62, distance=41, thisNumIndex=6, thatNumIndex=2}
+Testing for position(6) on (3)
+Testing for position(6) on (4)
+Testing for position(6) on (5)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=-73, b=69, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=-65, b=0, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=-4, b=69, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=65, b=0, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=65, b=45, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=65, b=90, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+Testing for position(6) on (6)
+Testing for position(6) on (7)
+Testing for position(7) on (1)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-95, b=45, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-95, b=90, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-57, b=45, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-57, b=90, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-19, b=45, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-19, b=90, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-78, b=0, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-26, b=0, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=26, b=0, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=26, b=45, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=26, b=90, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=78, b=0, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=78, b=45, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=78, b=90, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+Testing for position(7) on (2)
+Testing for position(7) on (3)
+Testing for position(7) on (4)
+Testing for position(7) on (5)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=-97, b=85, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=-47, b=85, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=3, b=35, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=3, b=80, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=53, b=35, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=53, b=80, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+Testing for position(7) on (6)
+Testing for position(7) on (7)
+old : 1 new : 9	old : 2 new : 38	old : 3 new : 25	old : 4 new : 7	old : 5 new : 6	old : 6 new : 13	old : 7 new : 44	old : 8 new : 17	old : 9 new : 31	old : 10 new : 1	old : 11 new : 42	old : 12 new : 40	old : 13 new : 23	old : 14 new : 4	old : 15 new : 18	old : 16 new : 37	old : 17 new : 14	old : 18 new : 21	old : 19 new : 12	old : 20 new : 8	old : 21 new : 11	old : 22 new : 28	old : 23 new : 30	old : 24 new : 39	old : 25 new : 3	old : 26 new : 24	old : 27 new : 29	old : 28 new : 33	old : 29 new : 16	old : 30 new : 5	old : 31 new : 41	old : 32 new : 32	old : 33 new : 27	old : 34 new : 2	old : 35 new : 36	old : 36 new : 19	old : 37 new : 26	old : 38 new : 45	old : 39 new : 43	old : 40 new : 20	old : 41 new : 35	old : 42 new : 15	old : 43 new : 34	old : 44 new : 22	old : 45 new : 10	
+Testing for position(1) on (1)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-83, b=54, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-83, b=99, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-31, b=54, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-31, b=99, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=21, b=2, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=21, b=47, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=21, b=92, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=73, b=2, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=73, b=47, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=73, b=92, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+Testing for position(1) on (2)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1174, totalSize=100, a=-70, b=24, c=67, distance=20, thisNumIndex=1, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1174, totalSize=100, a=-64, b=43, c=67, distance=20, thisNumIndex=1, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1174, totalSize=100, a=-3, b=24, c=67, distance=20, thisNumIndex=1, thatNumIndex=2}
+Testing for position(1) on (3)
+Testing for position(1) on (4)
+Testing for position(1) on (5)
+Testing for position(1) on (6)
+Testing for position(1) on (7)
+Testing for position(2) on (1)
+Testing for position(2) on (2)
+Testing for position(2) on (3)
+Testing for position(2) on (4)
+Testing for position(2) on (5)
+Testing for position(2) on (6)
+Testing for position(2) on (7)
+Testing for position(3) on (1)
+Testing for position(3) on (2)
+Testing for position(3) on (3)
+Testing for position(3) on (4)
+Testing for position(3) on (5)
+Testing for position(3) on (6)
+Testing for position(3) on (7)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-72, b=42, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-72, b=87, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-42, b=42, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-42, b=87, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-12, b=42, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1178, totalSize=100, a=-12, b=87, c=30, distance=35, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=16, totalDiff=1363, totalSize=100, a=-67, b=56, c=88, distance=73, thisNumIndex=3, thatNumIndex=7}
+SeparateNumTrainingResult{totalMatch=16, totalDiff=1363, totalSize=100, a=-21, b=32, c=88, distance=73, thisNumIndex=3, thatNumIndex=7}
+Testing for position(4) on (1)
+Testing for position(4) on (2)
+Testing for position(4) on (3)
+Testing for position(4) on (4)
+Testing for position(4) on (5)
+Testing for position(4) on (6)
+Testing for position(4) on (7)
+Testing for position(5) on (1)
+Testing for position(5) on (2)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1287, totalSize=100, a=81, b=23, c=87, distance=68, thisNumIndex=5, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1287, totalSize=100, a=81, b=68, c=87, distance=68, thisNumIndex=5, thatNumIndex=2}
+Testing for position(5) on (3)
+Testing for position(5) on (4)
+Testing for position(5) on (5)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1300, totalSize=100, a=-49, b=27, c=90, distance=18, thisNumIndex=5, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1300, totalSize=100, a=-41, b=63, c=90, distance=18, thisNumIndex=5, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1353, totalSize=100, a=-52, b=89, c=100, distance=35, thisNumIndex=5, thatNumIndex=5}
+Testing for position(5) on (6)
+Testing for position(5) on (7)
+Testing for position(6) on (1)
+Testing for position(6) on (2)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1244, totalSize=100, a=-65, b=48, c=62, distance=41, thisNumIndex=6, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1244, totalSize=100, a=-59, b=14, c=62, distance=41, thisNumIndex=6, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1244, totalSize=100, a=-3, b=48, c=62, distance=41, thisNumIndex=6, thatNumIndex=2}
+Testing for position(6) on (3)
+Testing for position(6) on (4)
+Testing for position(6) on (5)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=-73, b=69, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=-65, b=0, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=-4, b=69, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=65, b=0, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=65, b=45, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1215, totalSize=100, a=65, b=90, c=69, distance=33, thisNumIndex=6, thatNumIndex=5}
+Testing for position(6) on (6)
+Testing for position(6) on (7)
+Testing for position(7) on (1)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-95, b=45, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-95, b=90, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-57, b=45, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-57, b=90, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-19, b=45, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-19, b=90, c=38, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-78, b=0, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=-26, b=0, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=26, b=0, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=26, b=45, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=26, b=90, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=78, b=0, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=78, b=45, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1410, totalSize=100, a=78, b=90, c=52, distance=42, thisNumIndex=7, thatNumIndex=1}
+Testing for position(7) on (2)
+Testing for position(7) on (3)
+Testing for position(7) on (4)
+Testing for position(7) on (5)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=-97, b=85, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=-47, b=85, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=3, b=35, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=3, b=80, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=53, b=35, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1222, totalSize=100, a=53, b=80, c=50, distance=74, thisNumIndex=7, thatNumIndex=5}
+Testing for position(7) on (6)
+Testing for position(7) on (7)
+old : 1 new : 5	old : 2 new : 8	old : 3 new : 29	old : 4 new : 18	old : 5 new : 22	old : 6 new : 41	old : 7 new : 26	old : 8 new : 31	old : 9 new : 45	old : 10 new : 33	old : 11 new : 30	old : 12 new : 24	old : 13 new : 13	old : 14 new : 32	old : 15 new : 1	old : 16 new : 2	old : 17 new : 25	old : 18 new : 10	old : 19 new : 17	old : 20 new : 6	old : 21 new : 3	old : 22 new : 27	old : 23 new : 39	old : 24 new : 42	old : 25 new : 20	old : 26 new : 40	old : 27 new : 9	old : 28 new : 35	old : 29 new : 7	old : 30 new : 23	old : 31 new : 36	old : 32 new : 28	old : 33 new : 14	old : 34 new : 15	old : 35 new : 21	old : 36 new : 44	old : 37 new : 4	old : 38 new : 37	old : 39 new : 43	old : 40 new : 12	old : 41 new : 11	old : 42 new : 19	old : 43 new : 38	old : 44 new : 34	old : 45 new : 16	
+Testing for position(1) on (1)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-83, b=54, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-83, b=99, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-31, b=54, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=-31, b=99, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=21, b=2, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=21, b=47, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=21, b=92, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=73, b=2, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=73, b=47, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1356, totalSize=100, a=73, b=92, c=52, distance=80, thisNumIndex=1, thatNumIndex=1}
+Testing for position(1) on (2)
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1174, totalSize=100, a=-70, b=24, c=67, distance=20, thisNumIndex=1, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1174, totalSize=100, a=-64, b=43, c=67, distance=20, thisNumIndex=1, thatNumIndex=2}
+SeparateNumTrainingResult{totalMatch=15, totalDiff=1174, totalSize=100, a=-3, b=24, c=67, distance=20, thisNumIndex=1, thatNumIndex=2}
+Testing for position(1) on (3)
+Testing for position(1) on (4)
+Testing for position(1) on (5)
+Testing for position(1) on (6)
+Testing for position(1) on (7)
+Testing for position(2) on (1)
+Testing for position(2) on (2)
+Testing for position(2) on (3)
+Testing for position(2) on (4)
+Testing for position(2) on (5)
+Testing for position(2) on (6)
+Testing for position(2) on (7)
+Testing for position(3) on (1)
+Testing for position(3) on (2)
