@@ -76,12 +76,12 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
         int bRange = testRange;
         int cRange = testRange;
         int distanceRange = testRange;
-        IntStream.range(0, 10).forEach(l ->
+        IntStream.range(0, 20).forEach(l ->
         {
             long start = System.currentTimeMillis();
             Map<Integer, Integer> numMap = createNumMapping();
 //        int numIndex =1;
-            for (int thisNumIndex = 4; thisNumIndex <= 4; thisNumIndex++) {
+            for (int thisNumIndex = 1; thisNumIndex <= OZLottoDraw.NUM_OF_BALL; thisNumIndex++) {
 
                 for (int thatNumIndex = 1; thatNumIndex <= OZLottoDraw.NUM_OF_BALL; thatNumIndex++) {
                     System.out.print("Testing for position(" + thisNumIndex + ") on (" + thatNumIndex + ")");
@@ -113,12 +113,13 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
                                         }
                                     }
 
-                                    if (result.getTotalMatch() > result.getTotalSize() / 7) {
+                                    if (result.getTotalMatch() > result.getTotalSize() / 6
+                                            || result.getTotalDiff() < result.getTotalSize() * 6
+                                            ) {
                                         System.out.println();
                                         System.out.print(result);
                                         hasResult = true;
                                     }
-//                                if (result.getTotalDiff() < result.getTotalSize() * 6) System.out.println(result);
                                 }
                             }
                         }
@@ -145,7 +146,8 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
             nums.remove(index);
         }
 
-        numMap.forEach((k, v) -> System.out.print("old : " + k + " new : " + v + "\t"));
+//        numMap.forEach((k, v) -> System.out.print("old : " + k + " new : " + v + "\t"));
+        numMap.forEach((k, v) -> System.out.print(v + ","));
         System.out.println();
         return numMap;
     }
@@ -172,59 +174,65 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
         if (index <= 100) return null;
         Set<Integer> selectionSet = new HashSet<>();
         try {
-            //a=-70, b=24, c=67, distance=20, thisNumIndex=1, thatNumIndex=2
-            int num1 = Math.abs(((results.get(index - 20).getNum(2) * -70) % 67 + 24)) % OZLottoDraw.MAX_NUM + 1;
+
+            String conditionString1_1 = "a=-70, b=24, c=67, distance=20, thisNumIndex=1, thatNumIndex=2";
+            int num1_1 = generateNum(conditionString1_1, index);
             //System.out.println("num1:"+num1);
-            int[] index2NewNums = {39, 40, 27, 10, 17, 12, 24, 41, 30, 25, 2, 8, 18, 19, 13, 21, 22, 5, 38, 34, 28, 36, 26, 20, 23, 33, 43, 44, 37, 7, 6, 16, 29, 45, 1, 9, 42, 11, 3, 14, 4, 15, 31, 35, 32};
-            Map<Integer, Integer> index2Map = buildMap(index2NewNums);
-            //a=-86, b=11, c=55, distance=90, thisNumIndex=2, thatNumIndex=6}
-            int index2NewNum1 = index2Map.get(results.get(index - 90).getNum(6));
-            int num2 = Math.abs(((index2NewNum1 * -86) % 55 + 11)) % OZLottoDraw.MAX_NUM + 1;
-            //a=-88, b=76, c=90, distance=61, thisNumIndex=2, thatNumIndex=1
-            int index2NewNum2 = index2Map.get(results.get(index - 61).getNum(1));
-            int nu21 = Math.abs(((index2NewNum2 * -88) % 90 + 76)) % OZLottoDraw.MAX_NUM + 1;
+
+            int[] index2NewNums = {20,31,37,10,44,17,8,14,1,36,43,28,15,41,13,26,45,19,22,9,21,6,18,4,27,25,35,16,38,39,29,40,2,12,32,11,30,23,42,5,33,7,34,3,24};
+            String conditionString2_1 = "a=-79, b=38, c=23, distance=49, thisNumIndex=2, thatNumIndex=1";
+            int num2_1 = generateNum(index2NewNums, conditionString2_1, index);
+            String conditionString2_2 = "a=13, b=15, c=23, distance=49, thisNumIndex=2, thatNumIndex=1";
+            int num2_2 = generateNum(index2NewNums, conditionString2_2, index);
             //System.out.println("num2:"+num2);
             //System.out.println("nu21:"+nu21);
-            // a=-72, b=42, c=30, distance=35, thisNumIndex=3, thatNumIndex=7
-            int num3 = Math.abs(((results.get(index - 35).getNum(7) * -72) % 30 + 42)) % OZLottoDraw.MAX_NUM + 1;
-            // a=-67, b=56, c=88, distance=73, thisNumIndex=3, thatNumIndex=7
-            int nu31 = Math.abs(((results.get(index - 73).getNum(7) * -67) % 88 + 56)) % OZLottoDraw.MAX_NUM + 1;
+
+            String conditionString3_1 = "a=-67, b=56, c=88, distance=73, thisNumIndex=3, thatNumIndex=7";
+            int num3_1 = generateNum(conditionString3_1, index);
+            String conditionString3_2 = "a=-72, b=42, c=30, distance=35, thisNumIndex=3, thatNumIndex=7";
+            int num3_2 = generateNum(conditionString3_2, index);
             //System.out.println("num3:"+num3);
             //System.out.println("nu31:"+nu31);
+
             int[] index4NewNums = {37, 39, 30, 6, 24, 3, 45, 44, 4, 21, 29, 13, 18, 9, 11, 27, 16, 15, 5, 14, 32, 20, 42, 41, 22, 2, 26, 12, 33, 10, 8, 36, 23, 35, 1, 40, 43, 38, 25, 34, 28, 31, 19, 7, 17};
-            Map<Integer, Integer> index4Map = buildMap(index4NewNums);
-            //a=-63, b=57, c=50, distance=28, thisNumIndex=4, thatNumIndex=5
-            int index4NewNum1 = index2Map.get(results.get(index - 28).getNum(5));
-            int num4 = Math.abs(((index4NewNum1 * -63) % 50 + 57)) % OZLottoDraw.MAX_NUM + 1;
-            int nu41 = NumberGenUtil.randomGenerateNumber(OZLottoDraw.MAX_NUM);
+            String conditionString4_1 = "a=-63, b=57, c=50, distance=28, thisNumIndex=4, thatNumIndex=5";
+            int num4_1 = generateNum(index4NewNums, conditionString4_1, index);
+            int num4_2 = NumberGenUtil.randomGenerateNumber(OZLottoDraw.MAX_NUM);
             //System.out.println("nu41:"+nu41);
-            // a=81, b=23, c=87, distance=68, thisNumIndex=5, thatNumIndex=2
-            int num5 = Math.abs(((results.get(index - 68).getNum(2) * -81) % 87 + 23)) % OZLottoDraw.MAX_NUM + 1;
-            //  a=-49, b=27, c=90, distance=18, thisNumIndex=5, thatNumIndex=5
-            int nu51 = Math.abs(((results.get(index - 18).getNum(5) * -49) % 90 + 27)) % OZLottoDraw.MAX_NUM + 1;
+
+            int[] index5NewNums ={20,31,37,10,44,17,8,14,1,36,43,28,15,41,13,26,45,19,22,9,21,6,18,4,27,25,35,16,38,39,29,40,2,12,32,11,30,23,42,5,33,7,34,3,24};
+            String conditionString5_1 = "a=-61, b=9, c=41, distance=68, thisNumIndex=5, thatNumIndex=2";
+            int num5_1 = generateNum(index5NewNums, conditionString5_1, index);
+            String conditionString5_2 = "a=81, b=23, c=87, distance=68, thisNumIndex=5, thatNumIndex=2";
+            int num5_2 = generateNum(conditionString5_2, index);
             //System.out.println("num5:"+num5);
             //System.out.println("nu51:"+nu51);
-            // a=-73, b=69, c=69, distance=33, thisNumIndex=6, thatNumIndex=5
-            int num6 = Math.abs(((results.get(index - 33).getNum(5) * -73) % 69 + 69)) % OZLottoDraw.MAX_NUM + 1;
-            //  a=-65, b=48, c=62, distance=41, thisNumIndex=6, thatNumIndex=2
-            int nu61 = Math.abs(((results.get(index - 41).getNum(2) * -65) % 62 + 48)) % OZLottoDraw.MAX_NUM + 1;
+
+
+            String conditionString6_1 = "a=-73, b=69, c=69, distance=33, thisNumIndex=6, thatNumIndex=5";
+            int num6_1 = generateNum(conditionString6_1, index);
+            String conditionString6_2 = "a=-65, b=48, c=62, distance=41, thisNumIndex=6, thatNumIndex=2";
+            int num6_2 = generateNum(conditionString6_2, index);
             // System.out.println("num6:"+num6);
             //System.out.println("nu61:"+nu61);
-            //a=-97, b=85, c=50, distance=74, thisNumIndex=7, thatNumIndex=5
-            int num7 = Math.abs(((results.get(index - 74).getNum(5) * -97) % 50 + 85)) % OZLottoDraw.MAX_NUM + 1;
-            // a=-95, b=45, c=38, distance=42, thisNumIndex=7, thatNumIndex=1
-            int nu71 = Math.abs(((results.get(index - 42).getNum(1) * -95) % 38 + 45)) % OZLottoDraw.MAX_NUM + 1;
+
+            String conditionString7_1 = "a=-97, b=85, c=50, distance=74, thisNumIndex=7, thatNumIndex=5";
+            int num7_1 = generateNum(conditionString7_1, index);
+            String conditionString7_2 = "a=-95, b=45, c=38, distance=42, thisNumIndex=7, thatNumIndex=1";
+            int num7_2 = generateNum(conditionString7_2, index);
             //System.out.println("num7:"+num7);
             //System.out.println("nu71:"+nu71);
 
-            num2 = num1 == num2 ? nu21 : num2;
-            num3 = num3 == num1 || num3 == num2 ? nu31 : num3;
-            num4 = num4 == num1 || num4 == num2 || num4 == num3 ? nu41 : num4;
-            num5 = num5 == num1 || num5 == num2 || num5 == num3 || num5 == num4 ? nu51 : num5;
-            num6 = num6 == num1 || num6 == num2 || num6 == num3 || num6 == num4 || num6 == num5 ? nu61 : num6;
-            num7 = num7 == num1 || num7 == num2 || num7 == num3 || num7 == num4 || num7 == num5 || num7 == num6 ? nu71 : num7;
+            List<Integer> selectedNums = new ArrayList<>();
+            selectedNums.add(num1_1);
+            pickNum(num2_1, num2_2, selectedNums);
+            pickNum(num3_1, num3_2, selectedNums);
+            pickNum(num4_1, num4_2, selectedNums);
+            pickNum(num5_1, num5_2, selectedNums);
+            pickNum(num6_1, num6_2, selectedNums);
+            pickNum(num7_1, num7_2, selectedNums);
 
-            Integer[] selected = {num1, num2, num3, num4, num5, num6, num7};
+            Integer[] selected = selectedNums.toArray(new Integer[selectedNums.size()]);
             OZLottoDraw draw = new OZLottoDraw(selected);
             System.out.println("selected: " + (index >= results.size() ? draw.toString() : draw.toWinResultString(results.get(index))));
             return draw;
@@ -234,6 +242,11 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
         return null;
     }
 
+    private void pickNum(int numX_1, int numX_2, List<Integer> selectedNums) {
+        int num = !selectedNums.contains(numX_1) ? numX_1 : (!selectedNums.contains(numX_2) ? numX_2 : NumberGenUtil.randomGenerateNumber(OZLottoDraw.MAX_NUM));
+        selectedNums.add(num);
+    }
+
     private Map<Integer, Integer> buildMap(int[] newNum) {
         Map<Integer, Integer> numMap = new HashMap<>();
 
@@ -241,5 +254,27 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
             numMap.put(i + 1, newNum[i]);
         }
         return numMap;
+    }
+
+    public int generateNum(int[] mapArray, String conditionString, int index) throws Exception {
+        //conditionString example
+        //a=-97, b=85, c=50, distance=74, thisNumIndex=7, thatNumIndex=5
+        Map<Integer, Integer> indexMap = mapArray[0] == 0 ? null : buildMap(mapArray);
+        String[] conditions = conditionString.trim().split(",");
+        int a = Integer.valueOf(conditions[0].substring(2));
+        int b = Integer.valueOf(conditions[1].substring(3));
+        int c = Integer.valueOf(conditions[2].substring(3));
+        int distance = Integer.valueOf(conditions[3].substring(10));
+        int thisNumIndex = Integer.valueOf(conditions[4].substring(14));
+        int thatNumIndex = Integer.valueOf(conditions[5].substring(14));
+
+        int thatNum = results.get(index - distance).getNum(thatNumIndex);
+        int num = indexMap != null ? indexMap.get(thatNum) : thatNum;
+        int generatedNum = Math.abs(((num * a) % c + b)) % OZLottoDraw.MAX_NUM + 1;
+        return generatedNum;
+    }
+
+    public int generateNum(String conditionString, int index) throws Exception {
+        return generateNum(new int[1], conditionString, index);
     }
 }
