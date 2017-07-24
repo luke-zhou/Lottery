@@ -2,6 +2,8 @@ package trainer;
 
 import analyser.OZLottoAnalyser;
 import domain.analyserresult.AbstractAnalyserResult;
+import domain.analyserresult.InOutPair;
+import domain.analyserresult.InOutPairAnalyserResult;
 import domain.analyserresult.OZLottoAnalyserResult;
 import domain.draw.OZLottoDraw;
 import domain.result.SeparateNumTrainingResult;
@@ -13,6 +15,7 @@ import java.io.File;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -23,6 +26,7 @@ import java.util.stream.IntStream;
  */
 public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
     private Map<Integer, OZLottoAnalyserResult> analyseResultMap;
+    private InOutPairAnalyserResult inOutPairAnalyserResult;
 
     public OZLottoTrainer(File resultFile) {
         super(resultFile, strings ->
@@ -35,6 +39,7 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
         LogUtil.log("OZLotto Result Sample Size: " + results.size());
         OZLottoAnalyser analyser = new OZLottoAnalyser(results);
         analyseResultMap = analyser.start();
+        inOutPairAnalyserResult = analyser.getInOutPairAnalyserResult();
     }
 
     @Override
@@ -179,7 +184,7 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
             int num1_1 = generateNum(conditionString1_1, index);
             //System.out.println("num1:"+num1);
 
-            int[] index2NewNums = {20,31,37,10,44,17,8,14,1,36,43,28,15,41,13,26,45,19,22,9,21,6,18,4,27,25,35,16,38,39,29,40,2,12,32,11,30,23,42,5,33,7,34,3,24};
+            int[] index2NewNums = {20, 31, 37, 10, 44, 17, 8, 14, 1, 36, 43, 28, 15, 41, 13, 26, 45, 19, 22, 9, 21, 6, 18, 4, 27, 25, 35, 16, 38, 39, 29, 40, 2, 12, 32, 11, 30, 23, 42, 5, 33, 7, 34, 3, 24};
             String conditionString2_1 = "a=-79, b=38, c=23, distance=49, thisNumIndex=2, thatNumIndex=1";
             int num2_1 = generateNum(index2NewNums, conditionString2_1, index);
             String conditionString2_2 = "a=13, b=15, c=23, distance=49, thisNumIndex=2, thatNumIndex=1";
@@ -200,7 +205,7 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
             int num4_2 = NumberGenUtil.randomGenerateNumber(OZLottoDraw.MAX_NUM);
             //System.out.println("nu41:"+nu41);
 
-            int[] index5NewNums ={20,31,37,10,44,17,8,14,1,36,43,28,15,41,13,26,45,19,22,9,21,6,18,4,27,25,35,16,38,39,29,40,2,12,32,11,30,23,42,5,33,7,34,3,24};
+            int[] index5NewNums = {20, 31, 37, 10, 44, 17, 8, 14, 1, 36, 43, 28, 15, 41, 13, 26, 45, 19, 22, 9, 21, 6, 18, 4, 27, 25, 35, 16, 38, 39, 29, 40, 2, 12, 32, 11, 30, 23, 42, 5, 33, 7, 34, 3, 24};
             String conditionString5_1 = "a=-61, b=9, c=41, distance=68, thisNumIndex=5, thatNumIndex=2";
             int num5_1 = generateNum(index5NewNums, conditionString5_1, index);
             String conditionString5_2 = "a=81, b=23, c=87, distance=68, thisNumIndex=5, thatNumIndex=2";
@@ -276,5 +281,15 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
 
     public int generateNum(String conditionString, int index) throws Exception {
         return generateNum(new int[1], conditionString, index);
+    }
+
+    public void displayPairInfo() {
+        IntStream.range(0, 100).forEach(distance -> {
+        IntStream.range(0, OZLottoDraw.NUM_OF_BALL).forEach(thatIndexNum -> {
+                List<InOutPair> test = inOutPairAnalyserResult.getInOutPairs().stream().filter(p -> p.getDistance() == distance+1).filter(p -> p.getThatIndexNum() == thatIndexNum+1).sorted((p1, p2) -> p2.getCount() - p1.getCount()).collect(Collectors.toList());
+                System.out.println(distance + " " + thatIndexNum + " " + test.size());
+            });
+        });
+        System.out.println();
     }
 }
