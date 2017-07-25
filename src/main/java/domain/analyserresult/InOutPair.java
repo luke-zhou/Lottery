@@ -12,7 +12,7 @@ public class InOutPair {
     int count;
 
     public InOutPair(int in, int out, int distance, int thisIndexNum, int thatIndexNum) {
-        int factor = gcdr(in, out);
+        int factor = 1;
         this.in = in / factor;
         this.out = out / factor;
         this.distance = distance;

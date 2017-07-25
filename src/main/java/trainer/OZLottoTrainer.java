@@ -176,6 +176,13 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
         }
     }
 
+    public void testByPair() {
+        OZLottoPairsThisIndexTrainingResult ozLottoPairsThisIndexTrainingResult = prepairPairTrainingResult();
+        for (int i = results.size() - 100; i < results.size(); i++) {
+            generateByPairResult(i, ozLottoPairsThisIndexTrainingResult);
+        }
+    }
+
     public OZLottoDraw generateByRandom(int index) {
         OZLottoDraw draw = OZLottoDraw.generateRandomDraw();
         System.out.println(draw.toWinResultString(results.get(index)));
@@ -306,21 +313,31 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
         return result;
     }
 
-    public OZLottoDraw generateByPairResult(int index) {
+    private OZLottoPairsThisIndexTrainingResult prepairPairTrainingResult() {
         OZLottoPairsThisIndexTrainingResult ozLottoPairsThisIndexTrainingResult = new OZLottoPairsThisIndexTrainingResult();
 
         IntStream.range(0, 100).forEach(distance -> {
             IntStream.range(0, OZLottoDraw.NUM_OF_BALL).forEach(thatIndexNum -> {
                 IntStream.range(0, OZLottoDraw.NUM_OF_BALL).forEach(thisIndexNum -> {
                     List<InOutPair> pairs = inOutPairAnalyserResult.getInOutPairs().stream().filter(p -> p.getDistance() == distance + 1).filter(p -> (p.getThatIndexNum() == thatIndexNum + 1) && (p.getThisIndexNum() == thisIndexNum + 1)).sorted((p1, p2) -> p2.getCount() - p1.getCount()).collect(Collectors.toList());
-                    if (pairs.size() <= 160) {
+                    if (pairs.size() <= 190) {
                         ozLottoPairsThisIndexTrainingResult.add(thisIndexNum + 1, thatIndexNum + 1, distance + 1, pairs);
                     }
                 });
             });
         });
 
-        Integer[] selectedNums = new Integer[7];
+        System.out.println("Valide total size:" + ozLottoPairsThisIndexTrainingResult.getSize());
+        return ozLottoPairsThisIndexTrainingResult;
+    }
+
+    public OZLottoDraw generateByPairResult(int index) {
+        return generateByPairResult(index, prepairPairTrainingResult());
+    }
+
+    public OZLottoDraw generateByPairResult(int index, OZLottoPairsThisIndexTrainingResult ozLottoPairsThisIndexTrainingResult) {
+
+        List<Integer> selectedNums = new ArrayList<>();
         IntStream.range(0, OZLottoDraw.NUM_OF_BALL).forEach(i -> {
             OZLottoPairsThatIndexTrainingResult ozLottoPairsThatIndexTrainingResult = ozLottoPairsThisIndexTrainingResult.get(i + 1);
             int[] selectedNum = new int[1];
@@ -329,10 +346,10 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
                 distanceMap.getMap().forEach((distance, pairs) -> {
                     try {
                         int thatNum = results.get(index - distance).getNum(thatIndex);
-                        List<InOutPair> validePairList =pairs.stream().filter(p -> p.getIn() == thatNum).sorted((p1, p2) -> p2.getCount() - p1.getCount()).collect(Collectors.toList());
-                        if (validePairList.size()>0){
+                        List<InOutPair> validePairList = pairs.stream().filter(p -> p.getIn() == thatNum).sorted((p1, p2) -> p2.getCount() - p1.getCount()).collect(Collectors.toList());
+                        if (validePairList.size() > 0) {
                             InOutPair pair = validePairList.get(0);
-                            if (pair.getCount() > maxCount[0]) {
+                            if (!selectedNums.contains(pair.getOut()) && pair.getCount() > maxCount[0]) {
                                 selectedNum[0] = pair.getOut();
                                 maxCount[0] = pair.getCount();
                             }
@@ -343,11 +360,11 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
                     }
                 });
             });
-            selectedNums[i] = selectedNum[0];
-            System.out.println("select num:"+selectedNum[0]+"  count:"+maxCount[0]);
+            selectedNums.add(selectedNum[0] != 0 ? selectedNum[0] : NumberGenUtil.randomGenerateNumber(OZLottoDraw.MAX_NUM));
+            System.out.println("select num:" + selectedNum[0] + "  count:" + maxCount[0]);
         });
-
-        OZLottoDraw draw = new OZLottoDraw(selectedNums);
+        Integer[] selected = selectedNums.toArray(new Integer[selectedNums.size()]);
+        OZLottoDraw draw = new OZLottoDraw(selected);
         System.out.println("selected: " + (index >= results.size() ? draw.toString() : draw.toWinResultString(results.get(index))));
         return draw;
     }

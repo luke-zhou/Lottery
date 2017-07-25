@@ -12,7 +12,8 @@ import java.util.stream.IntStream;
  * Created by Luke on 25/07/2017.
  */
 public class OZLottoPairsThisIndexTrainingResult {
-    Map<Integer, OZLottoPairsThatIndexTrainingResult> pairsMap;
+    private int size=0;
+    private Map<Integer, OZLottoPairsThatIndexTrainingResult> pairsMap;
 
     public OZLottoPairsThisIndexTrainingResult() {
         pairsMap = new HashMap<>();
@@ -21,9 +22,14 @@ public class OZLottoPairsThisIndexTrainingResult {
 
     public void add(int thisIndexNum, int thatIndexNum, int distance, List<InOutPair> pairs) {
         pairsMap.get(thisIndexNum).add(thatIndexNum, distance, pairs);
+        size++;
     }
 
     public OZLottoPairsThatIndexTrainingResult get(int i) {
        return pairsMap.get(i);
+    }
+
+    public int getSize() {
+        return size;
     }
 }
