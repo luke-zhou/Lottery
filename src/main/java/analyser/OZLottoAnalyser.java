@@ -16,16 +16,14 @@ import java.util.Map;
  * Date: 24/10/2016
  * Time: 12:22 PM
  */
-public class OZLottoAnalyser extends AbstractAnalyser<OZLottoDraw>
-{
+public class OZLottoAnalyser extends AbstractAnalyser<OZLottoDraw> {
     private InOutPairAnalyserResult inOutPairAnalyserResult;
-    public OZLottoAnalyser(List<OZLottoDraw> results)
-    {
+
+    public OZLottoAnalyser(List<OZLottoDraw> results) {
         super(results);
     }
 
-    public Map<Integer, OZLottoAnalyserResult> start()
-    {
+    public Map<Integer, OZLottoAnalyserResult> start() {
         Map<Integer, OZLottoAnalyserResult> analyseResultMap = new HashMap<>();
 
         results.stream().forEach(draw -> {
@@ -33,19 +31,20 @@ public class OZLottoAnalyser extends AbstractAnalyser<OZLottoDraw>
             analyseResultMap.put(draw.getId(), ozLottoAnalyserResult);
         });
 
-        //do num1 first
-        int thisIndexNum = 1;
         inOutPairAnalyserResult = new InOutPairAnalyserResult();
-        for(int i=results.size()-200; i<results.size();i++) {
-            for(int thatIndexNum = 1; thatIndexNum<=OZLottoDraw.NUM_OF_BALL;thatIndexNum++) {
-                for (int distance = 1; distance<=100; distance++) {
-                    try {
-                        int outputNum = results.get(i).getNum(thisIndexNum);
-                        int inputNum = results.get(i - distance).getNum(thatIndexNum);
-                        InOutPair inOutPair = new InOutPair(inputNum, outputNum, distance, thisIndexNum, thatIndexNum);
-                        inOutPairAnalyserResult.add(inOutPair);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+        for (int i = results.size() - 200; i < results.size(); i++) {
+//            System.out.println("i:"+i);
+            for (int thisIndexNum = 1; thisIndexNum <= OZLottoDraw.NUM_OF_BALL; thisIndexNum++) {
+                for (int thatIndexNum = 1; thatIndexNum <= OZLottoDraw.NUM_OF_BALL; thatIndexNum++) {
+                    for (int distance = 1; distance <= 100; distance++) {
+                        try {
+                            int outputNum = results.get(i).getNum(thisIndexNum);
+                            int inputNum = results.get(i - distance).getNum(thatIndexNum);
+                            InOutPair inOutPair = new InOutPair(inputNum, outputNum, distance, thisIndexNum, thatIndexNum);
+                            inOutPairAnalyserResult.add(inOutPair);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -54,8 +53,7 @@ public class OZLottoAnalyser extends AbstractAnalyser<OZLottoDraw>
         return analyseResultMap;
     }
 
-    private OZLottoAnalyserResult calculateAnalyseResult(OZLottoDraw draw)
-    {
+    private OZLottoAnalyserResult calculateAnalyseResult(OZLottoDraw draw) {
         OZLottoAnalyserResult ozLottoAnalyserResult = new OZLottoAnalyserResult(results.indexOf(draw) + 1);
 
         results.stream().filter(r -> r.getId() <= draw.getId()).forEach(r -> {
