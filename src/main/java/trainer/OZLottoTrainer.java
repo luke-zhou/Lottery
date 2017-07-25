@@ -178,7 +178,7 @@ public class OZLottoTrainer extends AbstractTrainer<OZLottoDraw> {
 
     public void testByPair() {
         OZLottoPairsThisIndexTrainingResult ozLottoPairsThisIndexTrainingResult = prepairPairTrainingResult();
-        for (int i = results.size() - 100; i < results.size(); i++) {
+        for (int i = results.size() - 50; i < results.size(); i++) {
             generateByPairResult(i, ozLottoPairsThisIndexTrainingResult);
         }
     }

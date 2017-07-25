@@ -32,7 +32,7 @@ public class OZLottoAnalyser extends AbstractAnalyser<OZLottoDraw> {
         });
 
         inOutPairAnalyserResult = new InOutPairAnalyserResult();
-        for (int i = results.size() - 200; i < results.size(); i++) {
+        for (int i = results.size() - 200-50; i < results.size()-50; i++) {
 //            System.out.println("i:"+i);
             for (int thisIndexNum = 1; thisIndexNum <= OZLottoDraw.NUM_OF_BALL; thisIndexNum++) {
                 for (int thatIndexNum = 1; thatIndexNum <= OZLottoDraw.NUM_OF_BALL; thatIndexNum++) {
